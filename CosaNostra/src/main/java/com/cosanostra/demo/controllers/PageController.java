@@ -10,5 +10,5 @@ public class PageController {
 	@GetMapping("/")
 	public String index() {
 		return "index.html";
-	}  
+	} 
 }
