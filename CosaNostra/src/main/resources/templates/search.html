@@ -1,59 +1,73 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>CosaNostra</title>
-		
-		<!-- BOOTSTRAP -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		
-		<!-- CSS -->
-		<link href="css/style.css" rel="stylesheet">
-		
-		
-	</head>
-	<body>
-	
-		<nav class="navbar navbar-expand-md navbar-dark nav-color">
-	      <a class="navbar-brand" href="/"><img src="https://media-cdn.tripadvisor.com/media/photo-s/0b/4d/7a/ee/logo.jpg" style="max-height:120px;"></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="navbar-toggler-icon"></span>
-	      </button>
-	
-	      <div class="collapse navbar-collapse" id="navbar">
-	        <ul class="navbar-nav mr-auto">
-	          <li class="nav-item active">
-	            <a class="nav-link" href="#">Test <span class="sr-only">(current)</span></a>
-	          </li>
-	          <li class="nav-item">
-	            <a class="nav-link" href="#">Test</a>
-	          </li>
-	          <li class="nav-item dropdown">
-	            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Test</a>
-	            <div class="dropdown-menu" aria-labelledby="dropdown">
-	              <a class="dropdown-item" href="#">Action</a>
-	              <a class="dropdown-item" href="#">Another action</a>
-	              <a class="dropdown-item" href="#">Something else here</a>
-	            </div>
-	          </li>
-	          
-	        </ul>
-	      </div>
-	    </nav>
-	
-	
-	
-		<div class="container">
-	      <div class="row justify-content-center row-search-bar">
-			<div class="col-12 col-md-10 col-lg-8 mb-4">
-				<div class="principal-title" th:text="${search}"></div>
-			</div>	
-		      	  
-	      </div>
+<head>
+<meta charset="UTF-8">
+<title>CosaNostra</title>
+
+<!-- BOOTSTRAP -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- CSS -->
+<link href="css/style.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-dark nav-color">
+		<a class="navbar-brand" href="/"><img
+			src="https://media-cdn.tripadvisor.com/media/photo-s/0b/4d/7a/ee/logo.jpg"
+			style="max-height: 120px;"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbar" aria-controls="navbarsExample04"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbar">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">Test
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Test</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="http://example.com"
+					id="dropdown" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">Test</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown">
+						<a class="dropdown-item" href="#">Action</a> <a
+							class="dropdown-item" href="#">Another action</a> <a
+							class="dropdown-item" href="#">Something else here</a>
+					</div></li>
+
+			</ul>
 		</div>
-	
-	</body>
+	</nav>
+
+
+
+	<div class="container">
+		<div class="row justify-content-center row-search-bar">
+			<div class="col-lg-3 col-md-4 col-sm-5 col-12 mb-4 align-items-center">
+				<div>
+					<img class="img-fluid"
+						src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Emmanuel_Macron_par_Claude_Truong-Ngoc_avril_2015.jpg/400px-Emmanuel_Macron_par_Claude_Truong-Ngoc_avril_2015.jpg">
+				</div>
+			</div>
+			<div class="col-lg-9 col-md-8 col-sm-7 col-12">
+				<div class="principal-title" th:text="${name}"></div>
+			</div>
+
+
+
+		</div>
+	</div>
+
+</body>
 </html>

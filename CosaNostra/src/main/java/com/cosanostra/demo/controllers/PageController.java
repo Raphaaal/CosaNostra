@@ -2,6 +2,7 @@ package com.cosanostra.demo.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.jayway.jsonpath.JsonPath;
 
 import controllers.search.SearchQuery;
 
@@ -30,13 +33,25 @@ public class PageController {
 		
 		System.out.println("Recherche :" + search);
 		
-		SearchQuery sq = new SearchQuery(search, "10");
+		SearchQuery sq = new SearchQuery(search, "1");
 		
 		JSONObject kgResult = sq.kgSearch();
 		
-		System.out.println(kgResult);
-		
-		modelMap.put("search", kgResult);
+		JSONArray elements = (JSONArray) kgResult.get("itemListElement");
+	    
+	      for (Object element : elements) {
+	    	try {  
+		        modelMap.put("name", JsonPath.read(element, "$.result.name").toString());
+		        System.out.println(JsonPath.read(element, "$.result.@type").toString());
+		        System.out.println(JsonPath.read(element, "$.result.image.url").toString());
+		        modelMap.put("image_url", JsonPath.read(element, "$.result.image.url").toString());
+		        System.out.println(JsonPath.read(element, "$.result.detailedDescription.url").toString());
+		        modelMap.put("description", JsonPath.read(element, "$.result.description").toString());
+		        System.out.println(JsonPath.read(element, "$.result.detailedDescription.articleBody").toString());
+		    	}catch(Exception e) {
+		    		System.out.println(" ");
+		    	}
+	    	}
 		return "search.html";
 	}
 	
