@@ -9,7 +9,6 @@ public class PageController {
 	
 	@GetMapping("/")
 	public String index() {
-		return "marc la pute";
-	}
-	
+		return "index.html";
+	}  
 }

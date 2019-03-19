@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+body {
+	background-image: url('https://wallpaperplay.com/walls/full/b/b/e/13892.jpg');
+}
+
+.test{
+	background-color:red;
+}
+
+
+.form-control-borderless {
+    border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+
+.row-search-bar{
+	margin-top:80px;
+}
+
+.nav-color{
+	background-color:none;
+}
+
+.principal-title{
+	color:white;
+	font-size: 4em;
+}
