@@ -60,7 +60,7 @@ public class SearchQuery {
 	      GenericUrl baseUrl = new GenericUrl("https://www.wikidata.org/w/api.php?");
 	      baseUrl.put("action","wbgetentities");
 	      baseUrl.put("ids",page_id);
-	      baseUrl.put("props","labels");
+	      baseUrl.put("props","labels|descriptions");
 	      baseUrl.put("languages","fr");
 	      baseUrl.put("format", "json");
 	      HttpRequest finalRequest = requestFactory.buildGetRequest(baseUrl);
@@ -112,14 +112,15 @@ public class SearchQuery {
     return response;
   }
   
-  
+  /*
   public static void main(String[] args) throws IOException, ParseException {
 	
-	  SearchQuery sq=new SearchQuery("Neymar","10");
+	  SearchQuery sq=new SearchQuery("Booba","10");
 	  System.out.println(sq.kgSearch());
 	  System.out.println(sq.wikiSearch());
 	  
 	  
 	  
 }
+*/
 }
