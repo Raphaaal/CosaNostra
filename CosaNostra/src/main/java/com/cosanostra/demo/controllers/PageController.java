@@ -1,5 +1,7 @@
 package com.cosanostra.demo.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +18,13 @@ public class PageController {
 		return "index.html";
 	}
 	
-	@RequestMapping("/search")
-	public String search(@RequestParam("search") String search, ModelMap modelMap) {
+	@GetMapping("/search")
+	public String search(HttpServletRequest request, ModelMap modelMap) {
+		if(request.getParameter("search").equals("")) {
+			return "index.html";
+		}
+		String search = request.getParameter("search");
+		
 		modelMap.put("search", search);
 		return "search.html";
 	}
