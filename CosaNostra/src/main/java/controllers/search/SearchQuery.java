@@ -115,7 +115,7 @@ public class SearchQuery {
   
   public static void main(String[] args) throws IOException, ParseException {
 	
-	  SearchQuery sq=new SearchQuery("Neymar","1");
+	  SearchQuery sq=new SearchQuery("Neymar","10");
 	  System.out.println(sq.kgSearch());
 	  System.out.println(sq.wikiSearch());
 	  
