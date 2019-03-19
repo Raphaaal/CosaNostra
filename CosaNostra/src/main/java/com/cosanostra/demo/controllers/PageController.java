@@ -2,12 +2,15 @@ package com.cosanostra.demo.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import controllers.search.SearchQuery;
 
 
 @Controller
@@ -25,7 +28,15 @@ public class PageController {
 		}
 		String search = request.getParameter("search");
 		
-		modelMap.put("search", search);
+		System.out.println("Recherche :" + search);
+		
+		SearchQuery sq = new SearchQuery(search, "10");
+		
+		JSONObject kgResult = sq.kgSearch();
+		
+		System.out.println(kgResult);
+		
+		modelMap.put("search", kgResult);
 		return "search.html";
 	}
 	
