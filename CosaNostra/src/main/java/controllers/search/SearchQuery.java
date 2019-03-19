@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -88,23 +90,7 @@ public class SearchQuery {
       HttpResponse httpResponse = request.execute();
       response = (JSONObject) parser.parse(httpResponse.parseAsString());
       
-      /*
-      JSONArray elements = (JSONArray) response.get("itemListElement");
-      System.out.println(response);
-      System.out.println("------------------------");
-      for (Object element : elements) {
-    	try {  
-        System.out.println(JsonPath.read(element, "$.result.name").toString());
-        System.out.println(JsonPath.read(element, "$.result.@type").toString());
-        System.out.println(JsonPath.read(element, "$.result.image.url").toString());
-        System.out.println(JsonPath.read(element, "$.result.detailedDescription.url").toString());
-        System.out.println(JsonPath.read(element, "$.result.description").toString());
-        System.out.println(JsonPath.read(element, "$.result.detailedDescription.articleBody").toString());
-    	}catch(Exception e) {
-    		System.out.println(" ");
-    	}
-    	}
-    	*/
+     
     } catch (Exception ex) {
       ex.printStackTrace();
     }
@@ -112,15 +98,71 @@ public class SearchQuery {
     return response;
   }
   
+public List<String> kgGetDescriptions(JSONObject searchResult, int index) {
+	  
+	  List<String> descs = new LinkedList<>();
+      JSONArray elements = (JSONArray) searchResult.get("itemListElement");
+      for (Object element : elements) {
+    	try {  
+        String desc = (JsonPath.read(element, "$.result.detailedDescription.articleBody").toString());
+        descs.add(desc);
+    	}catch(Exception e) {
+    	}
+    	}
+	  return descs;
+  }
+  
+public List<String> kgGetWikiUrl(JSONObject searchResult, int index) {
+	  
+	  List<String> urls = new LinkedList<>();
+    JSONArray elements = (JSONArray) searchResult.get("itemListElement");
+    for (Object element : elements) {
+  	try {  
+      String url = (JsonPath.read(element, "$.result.url").toString());
+      System.out.println(url);
+      if(url.contains("DEBUG")) {
+    	  url="unknown";
+      }
+      urls.add(url);
+  	}catch(Exception e) {
+  	}
+  	}
+	  return urls;
+}
+  
+  public List<String> kgGetNames(JSONObject searchResult, int index) {
+	  
+	  List<String> names = new LinkedList<>();
+      JSONArray elements = (JSONArray) searchResult.get("itemListElement");
+      for (Object element : elements) {
+    	try {  
+        String name = (JsonPath.read(element, "$.result.name").toString());
+        
+        names.add(name);
+    	}catch(Exception e) {
+    	}
+    	}
+	  return names;
+  }
+  
+  
   /*
+   * System.out.println(JsonPath.read(element, "$.result.@type").toString());
+        System.out.println(JsonPath.read(element, "$.result.image.url").toString());
+        System.out.println(JsonPath.read(element, "$.result.detailedDescription.url").toString());
+        System.out.println(JsonPath.read(element, "$.result.description").toString());
+        System.out.println(JsonPath.read(element, "$.result.detailedDescription.articleBody").toString());
+   */
+  
+  
   public static void main(String[] args) throws IOException, ParseException {
 	
-	  SearchQuery sq=new SearchQuery("Booba","10");
-	  System.out.println(sq.kgSearch());
-	  System.out.println(sq.wikiSearch());
-	  
-	  
-	  
+	  SearchQuery sq=new SearchQuery("booba","10");
+	  //System.out.println(sq.kgSearch());
+	  System.out.println(sq.kgGetNames(sq.kgSearch(), 10));
+	  System.out.println(sq.kgGetWikiUrl(sq.kgSearch(), 10));
+
+	  //System.out.println(sq.wikiSearch());   
 }
-*/
+  
 }
