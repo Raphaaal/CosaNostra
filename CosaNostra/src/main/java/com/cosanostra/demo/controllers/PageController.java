@@ -1,5 +1,10 @@
 package com.cosanostra.demo.controllers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONArray;
@@ -15,44 +20,56 @@ import com.jayway.jsonpath.JsonPath;
 
 import controllers.search.SearchQuery;
 
-
 @Controller
 public class PageController {
-	
+
 	@GetMapping("/")
 	public String index() {
 		return "index.html";
 	}
-	
+
 	@GetMapping("/search")
 	public String search(HttpServletRequest request, ModelMap modelMap) {
-		if(request.getParameter("search").equals("")) {
+		if (request.getParameter("search").equals("")) {
 			return "index.html";
 		}
 		String search = request.getParameter("search");
-		
+
 		System.out.println("Recherche :" + search);
-		
+
 		SearchQuery sq = new SearchQuery(search, "1");
-		
+
 		JSONObject kgResult = sq.kgSearch();
-		
+
 		JSONArray elements = (JSONArray) kgResult.get("itemListElement");
-	    
-	      for (Object element : elements) {
-	    	try {  
-		        modelMap.put("name", JsonPath.read(element, "$.result.name").toString());
-		        System.out.println(JsonPath.read(element, "$.result.@type").toString());
-		        System.out.println(JsonPath.read(element, "$.result.image.url").toString());
-		        modelMap.put("image_url", JsonPath.read(element, "$.result.image.url").toString());
-		        System.out.println(JsonPath.read(element, "$.result.detailedDescription.url").toString());
-		        modelMap.put("description", JsonPath.read(element, "$.result.description").toString());
-		        System.out.println(JsonPath.read(element, "$.result.detailedDescription.articleBody").toString());
-		    	}catch(Exception e) {
-		    		System.out.println(" ");
-		    	}
-	    	}
+
+		List<String> results = new ArrayList();
+		results.add("A");
+		results.add("B");
+		
+
+		Map<String, List<Map>> map = new HashMap();
+		
+		modelMap.put("results", results);
+		
+		
+		
+		for (Object element : elements) {
+			try {
+
+				modelMap.addAttribute("name", "$.result.name");
+				modelMap.put("name", JsonPath.read(element, "$.result.name").toString());
+				System.out.println(JsonPath.read(element, "$.result.@type").toString());
+				System.out.println(JsonPath.read(element, "$.result.image.url").toString());
+				modelMap.put("image_url", JsonPath.read(element, "$.result.image.url").toString());
+				System.out.println(JsonPath.read(element, "$.result.detailedDescription.url").toString());
+				modelMap.put("description", JsonPath.read(element, "$.result.description").toString());
+				System.out.println(JsonPath.read(element, "$.result.detailedDescription.articleBody").toString());
+			} catch (Exception e) {
+				System.out.println(" ");
+			}
+		}
 		return "search.html";
 	}
-	
+
 }
