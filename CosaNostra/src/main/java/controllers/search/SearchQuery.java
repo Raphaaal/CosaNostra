@@ -88,7 +88,7 @@ public class SearchQuery {
 		url.put("srsearch", this.query);
 		url.put("format", "json");
 		// REQUETE WIKIDATA CORRESPONDANT AU SEARCH
-		System.out.println(url);
+		//System.out.println(url);
 		HttpRequest request = requestFactory.buildGetRequest(url);
 		HttpResponse httpResponse = request.execute();
 		JSONObject response = (JSONObject) parser.parse(httpResponse.parseAsString());
