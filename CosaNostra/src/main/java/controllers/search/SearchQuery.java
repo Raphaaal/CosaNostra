@@ -132,14 +132,22 @@ public class SearchQuery {
 	      HttpResponse finalHttpResponse = finalRequest.execute();
 	      JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
 	      
-	      // PHOTO (reste à creuser un peu plus dans le JSON)
+	      // PHOTO
 	      Object entities =  finalResponse.get("entities");
 	      JSONObject Jentities = (JSONObject) entities;
 	      JSONObject Jid = (JSONObject) Jentities.get(res.getPageId());
 	      Object claims = Jid.get("claims");
 	      JSONObject Jclaims = (JSONObject) claims;
 	      Object photo = Jclaims.getOrDefault("P18", "wallou");
-	      res.setPhotoUrl(photo.toString());
+	      JSONArray Jphoto = (JSONArray) photo;
+	      Object mainsnak = Jphoto.get(0);
+	      JSONObject Jmainsnak = (JSONObject) mainsnak;
+	      Object datavalue = Jmainsnak.get("datavalue");
+	      JSONObject Jdatavalue = (JSONObject) datavalue;
+	      Object value = Jdatavalue.get("value");
+	      JSONObject Jvalue = (JSONObject) value;
+	      
+	      res.setPhotoUrl(value.toString());
 	}
 	
 	/*
