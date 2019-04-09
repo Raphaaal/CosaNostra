@@ -149,7 +149,7 @@ public class SearchQuery {
 			JSONObject Jvalue = (JSONObject) value;
 			Object photoName = Jvalue.get("value");
 			String finalPhotoName = photoName.toString().replaceAll(" ", "_");
-			res.setPhotoUrl("https://commons.wikimedia.org/wiki/File:"+finalPhotoName);
+			res.setPhotoUrl("https://commons.wikimedia.org/wiki/Special:FilePath/"+finalPhotoName);
 		}
 		
 		// AJOUT NOM DU RESULT
