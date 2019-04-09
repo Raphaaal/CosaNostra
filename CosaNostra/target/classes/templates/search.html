@@ -49,23 +49,26 @@
 			</ul>
 		</div>
 	</nav>
-	
-    <table class="table">
-  		<thead class="thead-dark">
-		    <tr>
-		      <th scope="col">#</th>
-		      <th scope="col">First</th>
-		      <th scope="col">Last</th>
-		    </tr>
-	  	</thead>
-	  	<tbody>
-		    <tr th:each="result : ${results}">
-		      <td ><img th:src ="${result.photoUrl}"></td>
-		      <td th:text="${result.name}"></td>
-		      <td th:text="${result.type}"></td>
-		    </tr>
-		 </tbody>
-	</table>
+	<div class="container">
+		<table style = "background-color:#000033"; class="table">
+			<thead class="thead-dark">
+			    <tr>
+			      <th scope="col">Photo</th>
+			      <th scope="col">Name</th>
+			      <th scope="col">Type</th>
+			      <th scope="col">Link</th>
+			    </tr>
+		  	</thead>
+		  	<tbody>
+			    <tr th:each="result : ${results}"> 
+				      <td style="color:white;" ><img style="width:100px;height=auto"; th:src ="${result.photoUrl}"></td>
+				      <td style="color:white;" th:text="${result.name}"></td>
+				      <td style="color:white;" th:text="${result.type}"> </td>
+				      <td style="color:white;"> <a th:href = "@{'/result/'+${result.pageId}}">Go Further</a></td>   
+			    </tr>
+			 </tbody>
+		</table>
+	</div>
 	
 </body>
 </html>

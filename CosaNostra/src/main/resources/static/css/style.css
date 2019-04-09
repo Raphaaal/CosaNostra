@@ -24,6 +24,11 @@ body {
 	margin-top:80px;
 }
 
+.photoproduit-mini img{
+    max-width:100px;
+    height:auto;
+
+}
 .nav-color{
 	background-color:none;
 }
@@ -31,4 +36,8 @@ body {
 .principal-title{
 	color:white;
 	font-size: 4em;
+}
+
+.white-font{
+	color:white;
 }
