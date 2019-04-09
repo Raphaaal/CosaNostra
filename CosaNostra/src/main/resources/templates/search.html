@@ -49,31 +49,23 @@
 			</ul>
 		</div>
 	</nav>
-
-
-
-	<div class="container">
-		<div class="row justify-content-center row-search-bar">
-			<div class="col-lg-3 col-md-4 col-sm-5 col-12 mb-4 align-items-center">
-				<div>
-					<img class="img-fluid"
-						src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Emmanuel_Macron_par_Claude_Truong-Ngoc_avril_2015.jpg/400px-Emmanuel_Macron_par_Claude_Truong-Ngoc_avril_2015.jpg">
-				</div>
-			</div>
-			<div class="col-lg-9 col-md-8 col-sm-7 col-12">
-				<div class="principal-title"><a href="https://fr.wikipedia.org/wiki/Emmanuel_Macron" th:text="${results}"></a></div>
-			</div>
-
-
-
-		</div>
-	</div>
 	
-
-    <tr th:each="result : ${results}">
-        <td th:text="${result}">1</td>
-        <td><a href="#" th:text="${result}">Title ...</a></td>
-    </tr>
+    <table class="table">
+  		<thead class="thead-dark">
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">First</th>
+		      <th scope="col">Last</th>
+		    </tr>
+	  	</thead>
+	  	<tbody>
+		    <tr th:each="result : ${results}">
+		      <td ><img th:src ="${result.photoUrl}"></td>
+		      <td th:text="${result.name}"></td>
+		      <td th:text="${result.type}"></td>
+		    </tr>
+		 </tbody>
+	</table>
 	
 </body>
 </html>

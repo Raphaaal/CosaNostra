@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class Result implements Serializable {
 
-		public String name;
-		public String firstName;
-		public String photoUrl;
-		public String desc;
-		public String pageId;
-		public String type;
+		private String name;
+		private String firstName;
+		private String photoUrl;
+		private String desc;
+		private String pageId;
+		private String type;
 		
 		public String getName() {
 			return name;

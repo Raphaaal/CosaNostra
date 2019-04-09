@@ -1,5 +1,6 @@
 package com.cosanostra.demo.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jayway.jsonpath.JsonPath;
 
+import controllers.search.Result;
 import controllers.search.SearchQuery;
 
 @Controller
@@ -29,7 +32,7 @@ public class PageController {
 	}
 
 	@GetMapping("/search")
-	public String search(HttpServletRequest request, ModelMap modelMap) {
+	public String search(HttpServletRequest request, ModelMap modelMap) throws IOException, ParseException {
 		if (request.getParameter("search").equals("")) {
 			return "index.html";
 		}
@@ -37,24 +40,19 @@ public class PageController {
 
 		System.out.println("Recherche :" + search);
 
-		SearchQuery sq = new SearchQuery(search, "1");
+		SearchQuery sq = new SearchQuery(search);
 
-		JSONObject kgResult = sq.kgSearch();
-
-		JSONArray elements = (JSONArray) kgResult.get("itemListElement");
-
-		List<String> results = new ArrayList();
-		results.add("A");
-		results.add("B");
+		List<Result> wikiResult = sq.getResultsList();
 		
-
-		Map<String, List<Map>> map = new HashMap();
+		/*for (Result result : wikiResult) {
+			modelMap
+		} */
 		
-		modelMap.put("results", results);
+		modelMap.put("results", wikiResult);
 		
 		
 		
-		for (Object element : elements) {
+	/*	for (Object element : elements) {
 			try {
 
 				modelMap.addAttribute("name", "$.result.name");
@@ -67,8 +65,8 @@ public class PageController {
 				System.out.println(JsonPath.read(element, "$.result.detailedDescription.articleBody").toString());
 			} catch (Exception e) {
 				System.out.println(" ");
-			}
-		}
+			} 
+		} */
 		return "search.html";
 	}
 
