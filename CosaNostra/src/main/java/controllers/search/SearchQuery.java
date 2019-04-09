@@ -148,7 +148,8 @@ public class SearchQuery {
 			Object value = Jdatavalue.get("datavalue");
 			JSONObject Jvalue = (JSONObject) value;
 			Object photoName = Jvalue.get("value");
-			res.setPhotoUrl("https://commons.wikimedia.org/wiki/File:"+photoName.toString());
+			String finalPhotoName = photoName.toString().replaceAll(" ", "_");
+			res.setPhotoUrl("https://commons.wikimedia.org/wiki/File:"+finalPhotoName);
 		}
 		
 		// AJOUT NOM DU RESULT
@@ -165,6 +166,9 @@ public class SearchQuery {
 			JSONObject Jnamevalue = (JSONObject) namevalue;
 			Object nametext = Jnamevalue.get("text");
 			res.setName(nametext.toString());
+		}
+		else {
+			res.setName(query);
 		}
 	}
 	
