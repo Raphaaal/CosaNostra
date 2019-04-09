@@ -1,13 +1,15 @@
 package controllers.search;
 
-public class Result {
+import java.io.Serializable;
 
-		String name;
-		String firstName;
-		String photoUrl;
-		String desc;
-		String pageId;
-		String type;
+public class Result implements Serializable {
+
+		public String name;
+		public String firstName;
+		public String photoUrl;
+		public String desc;
+		public String pageId;
+		public String type;
 		
 		public String getName() {
 			return name;
