@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-body {
+body{
 	background-image: url('https://wallpaperplay.com/walls/full/b/b/e/13892.jpg');
 }
 
@@ -40,4 +40,8 @@ body {
 
 .white-font{
 	color:white;
+}
+
+.custom-button{
+	color:black;
 }

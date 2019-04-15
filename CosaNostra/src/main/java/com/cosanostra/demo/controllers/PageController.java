@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jayway.jsonpath.JsonPath;
 
+import controllers.search.FinalResult;
 import controllers.search.Result;
+import controllers.search.ResultQuery;
 import controllers.search.SearchQuery;
 
 @Controller
@@ -51,9 +53,11 @@ public class PageController {
 	}
 
 	@GetMapping("/result/{pageId}")
-	public String result(@PathVariable String pageId) {
+	public String result(@PathVariable String pageId, ModelMap modelMap) throws IOException, ParseException {
 		
-		System.out.println(pageId);
+		FinalResult result = ResultQuery.getFinalResult(pageId);
+		
+		modelMap.put("result", result);
 		
 		return "result.html";
 	}
