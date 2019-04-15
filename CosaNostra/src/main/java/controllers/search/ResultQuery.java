@@ -1,6 +1,8 @@
 package controllers.search;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,8 +15,11 @@ import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.jayway.jsonpath.JsonPath;
 
 public class ResultQuery {
+	
+	public static Properties properties = new Properties();
 	
 	public static FinalResult getFinalResult(String pageId) throws IOException, ParseException {
 		
@@ -208,6 +213,9 @@ public class ResultQuery {
 			Object value2 = Jvalue.get("value");
 			fRes.getRelatedServices().put("Spotify", "https://open.spotify.com/artist/"+value2.toString());
 		}
+		
+		//AJOUT DESCRIPTION
+		fRes.setDesc(getSummary(fRes.getName()));
 				
 		return fRes;
 		
@@ -241,7 +249,41 @@ public class ResultQuery {
 		return value.toString();
 	}
 	
+	
 	/*
+	public static String getDesc(String name)  {
+		JSONObject response=null;
+        try {
+          properties.load(new FileInputStream("src/main/resources/kgsearch.properties"));
+          HttpTransport httpTransport = new NetHttpTransport();
+          HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+          JSONParser parser = new JSONParser();
+          GenericUrl url = new GenericUrl("https://kgsearch.googleapis.com/v1/entities:search");
+          url.put("query", name);
+          url.put("limit", 1);
+          url.put("indent", "true");
+          url.put("key", properties.get("API_KEY"));
+          System.out.println(url);
+          HttpRequest request = requestFactory.buildGetRequest(url);
+          HttpResponse httpResponse = request.execute();
+          response = (JSONObject) parser.parse(httpResponse.parseAsString());
+          JSONArray elements = (JSONArray) response.get("itemListElement");
+          for (Object element : elements) {
+            System.out.println(JsonPath.read(element, "$.result.description").toString());
+          }
+
+          System.out.println(response);
+        
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+      
+        return "";
+		      
+	}
+	*/
+	
+	
 	public static String getSummary(String title) throws IOException, ParseException {
 		HttpTransport httpTransport = new NetHttpTransport();
 		HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
@@ -256,18 +298,20 @@ public class ResultQuery {
 		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
 		
 		Object query = finalResponse.get("query");
-		JSONObject Jquery = (JSONObject) entities;
-		Object page = Jentities.get(pageId);
-		JSONObject Jpage = (JSONObject) page;
-		Object labels = Jpage.get("labels");
-		JSONObject Jlabels = (JSONObject) labels;
-		Object lang = Jlabels.get("fr");
-		JSONObject Jlang = (JSONObject) lang;
-		Object value = Jlang.get("value");
-		
-		return value.toString();
+		JSONObject Jquery = (JSONObject) query;
+		Object pages = Jquery.get("pages");
+		JSONObject Jpages = (JSONObject) pages;
+		Object key = null;
+		for (Object element : Jpages.keySet()) {
+			key = element;
+			break;
+		}
+		Object objectKey = Jpages.get(key);
+		JSONObject JobjectKey = (JSONObject) objectKey;
+		Object extract = JobjectKey.get("extract");
+			
+		return (String) extract;
 	}
-	*/
 	
 	public static void main(String[] args) throws IOException, ParseException {
 		System.out.println(getFinalResult("Q642477"));

@@ -57,10 +57,10 @@ public class FinalResult {
 	public String getPageId() {
 		return pageId;
 	}
-	public String getdesc() {
+	public String getDesc() {
 		return desc;
 	}
-	public void setdesc(String desc) {
+	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 	public String getNationality() {
