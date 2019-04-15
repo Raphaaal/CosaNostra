@@ -37,14 +37,15 @@ public class FinalResult {
 		this.identity = new HashMap();
 	}
 	
+
 	@Override
 	public String toString() {
 		return "FinalResult [name=" + name + ", photoUrl=" + photoUrl + ", pageId=" + pageId + ", desc=" + desc
 				+ ", nationality=" + nationality + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth
-				+ ", occupation=" + occupation + ", style=" + style + ", relatedPagesIds=" + relatedPagesIds
-				+ ", relatedServices=" + relatedServices + "]";
+				+ ", occupation=" + occupation + ", style=" + style + ", identity=" + getIdentity() + ", relatedPagesIds="
+				+ relatedPagesIds + ", relatedServices=" + relatedServices + "]";
 	}
-	
+
 	public Map<String, String> getIdentity() {
 		identity.put("Date de naissance",Objects.requireNonNull(dateOfBirth));
 		identity.put("Nationalité",Objects.requireNonNull(nationality));
