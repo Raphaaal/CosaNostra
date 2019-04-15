@@ -2,6 +2,7 @@ package controllers.search;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class FinalResult {
 		
@@ -14,6 +15,7 @@ public class FinalResult {
 	private String dateOfBirth; // P569
 	private String occupation; // P106
 	private String style; // P136
+	private Map<String, String> identity;
 	private Map<String, String> relatedPagesIds;
 	private Map<String, String> relatedServices; //MusicBrainz P434, Twitter P2002, Spotify P1902
 	
@@ -32,6 +34,7 @@ public class FinalResult {
 		this.style = style;
 		this.relatedPagesIds = new HashMap();
 		this.relatedServices = new HashMap();
+		this.identity = new HashMap();
 	}
 	
 	@Override
@@ -41,6 +44,16 @@ public class FinalResult {
 				+ ", occupation=" + occupation + ", style=" + style + ", relatedPagesIds=" + relatedPagesIds
 				+ ", relatedServices=" + relatedServices + "]";
 	}
+	
+	public Map<String, String> getIdentity() {
+		identity.put("Date de naissance",Objects.requireNonNull(dateOfBirth));
+		identity.put("Nationalité",Objects.requireNonNull(nationality));
+		identity.put("Genre",Objects.requireNonNull(gender));
+		identity.put("Occupation",Objects.requireNonNull(occupation));
+		identity.put("Style",Objects.requireNonNull(style));
+		return identity;
+	}
+	
 	public String getName() {
 		return name;
 	}

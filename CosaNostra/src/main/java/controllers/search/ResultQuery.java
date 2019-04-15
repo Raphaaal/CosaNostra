@@ -59,23 +59,7 @@ public class ResultQuery {
 		}
 		
 		// AJOUT NOM DU RESULT
-		Object name = Jclaims.getOrDefault("P1559", "wallou nom");
-		if (name.toString() != "wallou nom") {
-			JSONArray Jname = (JSONArray) name;
-			Object mainsnak = Jname.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object namevalue = Jvalue.get("value");
-			JSONObject Jnamevalue = (JSONObject) namevalue;
-			Object nametext = Jnamevalue.get("text");
-			fRes.setName(nametext.toString());
-		}
-		else {
-			fRes.setName("No name");
-		}
+		fRes.setName(getPageName(pageId));
 		
 		//AJOUT DE LA DATE DE NAISSANCE
 		Object dtBirth = Jclaims.getOrDefault("P569", "wallou date de naissance");
@@ -92,9 +76,7 @@ public class ResultQuery {
 			Object nametext = Jnamevalue.get("time");
 			fRes.setDateOfBirth(nametext.toString());
 		}
-		else {
-			fRes.setDateOfBirth("No date de naissance");
-		}
+
 		
 		//AJOUT DU SEXE
 		Object gender = Jclaims.getOrDefault("P21", "wallou sexe");
@@ -111,9 +93,7 @@ public class ResultQuery {
 			String genderName = getPageName((String) Jvalue2.get("id"));
 			fRes.setGender(genderName.toString());
 		}
-		else {
-			fRes.setGender("No gender");
-		}
+
 		
 		//AJOUT NATIONALITY
 		Object nationality = Jclaims.getOrDefault("P27", "wallou nationality");
@@ -130,11 +110,9 @@ public class ResultQuery {
 			String nationalityName = getPageName((String) Jvalue2.get("id"));
 			fRes.setNationality(nationalityName.toString());
 		}
-		else {
-			fRes.setNationality("No nationality");
-		}
+
 		
-		//AJOUT ACCOUPATION
+		//AJOUT OCCUPATION
 		Object occupation = Jclaims.getOrDefault("P106", "wallou occupation");
 		if (occupation.toString() != "wallou occupation") {
 			JSONArray Joccupation = (JSONArray) occupation;
@@ -149,9 +127,7 @@ public class ResultQuery {
 			String nationalityName = getPageName((String) Jvalue2.get("id"));
 			fRes.setOccupation(nationalityName.toString());
 		}
-		else {
-			fRes.setOccupation("No occupation");
-		}
+
 		
 		//AJOUT STYLE
 		Object style = Jclaims.getOrDefault("P136", "wallou style");
@@ -168,9 +144,7 @@ public class ResultQuery {
 			String nationalityName = getPageName((String) Jvalue2.get("id"));
 			fRes.setStyle(nationalityName.toString());
 		}
-		else {
-			fRes.setStyle("No style");
-		}
+
 		
 		//AJOUT SERVICES RELIES
 		//MusicBrainz
@@ -314,7 +288,7 @@ public class ResultQuery {
 	}
 	
 	public static void main(String[] args) throws IOException, ParseException {
-		System.out.println(getFinalResult("Q642477"));
+		System.out.println(getFinalResult("Q5608"));
 	}
 
 }
