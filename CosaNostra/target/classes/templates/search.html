@@ -14,7 +14,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <!-- CSS -->
-<link href="css/style.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 
 
 </head>
@@ -61,9 +61,9 @@
 		  	</thead>
 		  	<tbody>
 			    <tr th:each="result : ${results}"> 
-				      <td style="color:white;" ><img style="width:100px;height=auto"; th:src ="${result.photoUrl}"></td>
+				      <td style="color:white;" ><img style="width:100px;height=auto;" th:src ="${result.photoUrl}"></td>
 				      <td style="color:white;" th:text="${result.name}"></td>
-				      <td style="color:white;" th:text="${result.type}"> </td>
+				      <td style="color:white;" th:utext="${result.type}"> </td>
 				      <td style="color:white;"> <a th:href = "@{'/result/'+${result.pageId}}">Go Further</a></td>   
 			    </tr>
 			 </tbody>

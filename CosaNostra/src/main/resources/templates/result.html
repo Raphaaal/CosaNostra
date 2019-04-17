@@ -11,7 +11,8 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		
 		<!-- CSS -->
-		<link href="css/style.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+		 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
 		
 		
 	</head>
@@ -19,7 +20,7 @@
 	
 		<nav class="navbar navbar-expand-md navbar-dark nav-color">
 	      <a class="navbar-brand" href="/"><img src="https://media-cdn.tripadvisor.com/media/photo-s/0b/4d/7a/ee/logo.jpg" style="max-height:120px;"></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbars04" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="navbar-toggler-icon"></span>
 	      </button>
 	
@@ -32,7 +33,7 @@
 	            <a class="nav-link" href="#">Test</a>
 	          </li>
 	          <li class="nav-item dropdown">
-	            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Test</a>
+	            <a class="nav-link dropdown-toggle" href="http://.com" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Test</a>
 	            <div class="dropdown-menu" aria-labelledby="dropdown">
 	              <a class="dropdown-item" href="#">Action</a>
 	              <a class="dropdown-item" href="#">Another action</a>
@@ -43,34 +44,73 @@
 	        </ul>
 	      </div>
 	    </nav>
-	
-	
-	
 		<div class="container">
-	      <div class="row justify-content-center row-search-bar">
-			<div class="col-12 col-md-10 col-lg-8 mb-4">
-				<div class="principal-title">Cosa Nostra</div>
-			</div>	
-		      	<div class="col-12 col-md-10 col-lg-8">
-	               <form method="GET" action="/search" class="card card-sm">
-	                   <div class="card-body row no-gutters align-items-center">
-	                       <div class="col-auto">
-	                           <i class="fas fa-search h4 text-body"></i>
-	                       </div>
-	                       <div class="col">
-	                           <input class="form-control form-control-lg form-control-borderless" type="search" name="search" id="search" placeholder="Film, musique, artiste ..">
-	                       </div>
-	                       <div class="col-auto">
-	                           <button class="btn btn-lg btn-dark" type="submit">Search</button>
-	                       </div>
-	                   </div>
-	               </form>
-	           </div>    
-	      </div>
-		</div>
-		
-		<div> 
-		
+			<div class="row">
+				<div class="col-6">
+					<img th:src ="${result.photoUrl}" class="img-fluid">
+				</div>
+				<div class="col-6 ">
+					<div class="row principal-title" th:text="${result.name}">
+					</div>
+					<div class="row">
+						<div class ="col-12">
+							<div class="accordion" id="accordion">
+							  <div class="card">
+							    <div class="card-header" id="headingOne">
+							      <h2 class="mb-0">
+							        <button class="btn btn-link custom-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							          Description
+							        </button>
+							      </h2>
+							    </div>
+							
+							    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+							      <div class="card-body" th:utext="${result.desc}">
+							      </div>
+							    </div>
+							  </div>
+							  
+							  
+							  <div class="card">
+							    <div class="card-header" id="headingTwo">
+							      <h2 class="mb-0">
+							        <button class="btn btn-link collapsed custom-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							          Fiche identité
+							        </button>
+							      </h2>
+							    </div>
+							    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+							      <div class="card-body">
+							      	<div th:each="identity : ${result.identity}">
+							      		<div th:text="${identity.key} +  ' : ' + ${identity.value}"></div>
+								    </div>
+							      </div>
+							    </div>
+							  </div>
+							  
+							  <div class="card">
+							    <div class="card-header" id="headingThree">
+							      <h2 class="mb-0">
+							        <button class="btn btn-link collapsed custom-button" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							          Services associés
+							        </button>
+							      </h2>
+							    </div>
+							    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+							      <div class="card-body">
+							      	<div th:each="service : ${result.relatedServices}">
+							      		<a th:href = "${service.value}" th:text="${service.key}"></a>
+								    </div>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+						</div>
+					
+						
+					</div>
+				</div>
+			</div>
 		</div>
 	
 	</body>
