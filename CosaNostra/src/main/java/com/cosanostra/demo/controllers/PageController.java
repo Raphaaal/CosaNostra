@@ -31,6 +31,11 @@ public class PageController {
 	public String index() {
 		return "index.html";
 	}
+	
+	@GetMapping("/signup")
+	public String subscribe() {
+		return "subscription.html";
+	}
 
 	@GetMapping("/search")
 	public String search(HttpServletRequest request, ModelMap modelMap) throws IOException, ParseException {
