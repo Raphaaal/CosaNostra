@@ -1,56 +1,16 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>CosaNostra</title>
-		
-		<!-- BOOTSTRAP -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		
-		<!-- CSS -->
-		<link href="/css/style.css" rel="stylesheet">
-		 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
-		
-		
-	</head>
+	<head th:replace="layout/head"></head>
 	<body>
 	
-		<nav class="navbar navbar-expand-md navbar-dark nav-color">
-	      <a class="navbar-brand" href="/"><img src="https://media-cdn.tripadvisor.com/media/photo-s/0b/4d/7a/ee/logo.jpg" style="max-height:120px;"></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbars04" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="navbar-toggler-icon"></span>
-	      </button>
-	
-	      <div class="collapse navbar-collapse" id="navbar">
-	        <ul class="navbar-nav mr-auto">
-	          <li class="nav-item active">
-	            <a class="nav-link" href="#">Test <span class="sr-only">(current)</span></a>
-	          </li>
-	          <li class="nav-item">
-	            <a class="nav-link" href="#">Test</a>
-	          </li>
-	          <li class="nav-item dropdown">
-	            <a class="nav-link dropdown-toggle" href="http://.com" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Test</a>
-	            <div class="dropdown-menu" aria-labelledby="dropdown">
-	              <a class="dropdown-item" href="#">Action</a>
-	              <a class="dropdown-item" href="#">Another action</a>
-	              <a class="dropdown-item" href="#">Something else here</a>
-	            </div>
-	          </li>
-	          
-	        </ul>
-	      </div>
-	    </nav>
+		<nav th:replace="layout/navbar"></nav>
 		<div class="container">
 			<div class="row">
 				<div class="col-6">
 					<img th:src ="${result.photoUrl}" class="img-fluid">
 				</div>
-				<div class="col-6 ">
-					<div class="row principal-title" th:text="${result.name}">
+				<div class="col-6">
+					<div class="row principal-title justify-content-center" th:text="${result.name}">
 					</div>
 					<div class="row">
 						<div class ="col-12">
@@ -65,7 +25,7 @@
 							    </div>
 							
 							    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-							      <div class="card-body" th:utext="${result.desc}">
+							      <div id="desc" class="card-body" th:utext="${result.desc}">
 							      </div>
 							    </div>
 							  </div>
@@ -114,4 +74,33 @@
 		</div>
 	
 	</body>
+	
+	<script>
+	$(document).ready(function(){
+		$('#desc').each(function(){
+			var trimLength = 400;
+			var trimMargin = 1.2; // don't trim just a couple of words
+			if($(this).text().length > (trimLength * trimMargin)) {
+				var text = $(this).html();
+				var trimPoint = $(this).html().indexOf("<h2>", trimLength) ;
+				var newContent = text.substring(0, trimPoint)+'<span id ="hided" class="read-more">'+text.substring(trimPoint)+'</span><span id="readmore" class="toggle">... <a href="#">(Read more)</a></span></span><span id="readless"> <a href="#">(Read less)</a></span>';
+				$(this).html(newContent);
+				$('#hided').hide();
+				$('#readless').hide();
+			}
+		});
+		$('#readmore').click(function(e){
+			e.preventDefault();
+			$('#hided').show();
+			$('#readmore').hide();
+			$('#readless').show();
+		});
+		$('#readless').click(function(e){
+			e.preventDefault();
+			$('#hided').hide();
+			$('#readless').hide();
+			$('#readmore').show();
+		});
+	});
+	</script>
 </html>

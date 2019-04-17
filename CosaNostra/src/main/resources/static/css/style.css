@@ -76,3 +76,16 @@ body{
 	color:black;
 >>>>>>> 09f5510e2504d4fcdbed089261e954d88b521696
 }
+
+.read-more {
+  display: none;
+}
+
+a {
+  color: #3ac;
+  transition: color 200ms ease-in;
+}
+
+a:hover {
+  color: #c33;
+}
