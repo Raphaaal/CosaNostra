@@ -1,6 +1,7 @@
 package models;
 
 public class User {
+
 	
 	private String email;
 	private String login;
@@ -11,6 +12,9 @@ public class User {
 		this.login = login;
 		this.password = password;
 	}
+	
+	public User() {}
+	
 	
 	@Override
 	public String toString() {
