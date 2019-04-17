@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+	<body>
+	
+		  
+
+	<h1>Form</h1>
+	
+    <form modelAttribute="user" action="/submissionResult" method="POST">
+    	<p>Login: <input type="text" name="login" /></p>
+    	<p>Email: <input type="text" name="email" /></p>
+    	<p>Password: <input type="text" name="password" /></p>
+    	
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        
+    </form>
+
+
+</body>
+     
+        
+        
+	</body>
+</html>
