@@ -7,8 +7,6 @@ public class ConnectionUtils {
 
 	public static Connection getMyConnection() throws SQLException, ClassNotFoundException {
 
-		// Using Oracle
-		// You may be replaced by other Database.
 		return MySQLConnUtils.getMySQLConnection();
 	}
 
@@ -20,11 +18,13 @@ public class ConnectionUtils {
 		System.out.println("Get connection ... ");
 
 		// Get a Connection object
-		Connection conn = ConnectionUtils.getMyConnection();
+		try (Connection conn = ConnectionUtils.getMyConnection();) {
 
-		System.out.println("Get connection " + conn);
+			System.out.println("Get connection " + conn);
 
-		System.out.println("Done!");
+			System.out.println("Done!");
+
+		}
 	}
 
 }
