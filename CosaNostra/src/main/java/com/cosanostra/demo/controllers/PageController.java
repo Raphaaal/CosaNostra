@@ -36,7 +36,7 @@ public class PageController {
 	
 	@GetMapping("/signup")
 	public String subscribe() {
-		return "subscription.html";
+		return "signup.html";
 	}
 
 	@GetMapping("/search")
