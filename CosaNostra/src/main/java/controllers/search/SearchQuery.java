@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -116,12 +117,12 @@ public class SearchQuery {
 			for(Result r : map.values()) {
 				for(String t : types) {
 					if(resultsToSend!=null) {
-						if((r.getInstanceOf().contains(t) || r.getInstanceOf().contains("Autre")) && !resultsToSend.contains(r)) {
+						if((r.getInstanceOf().contains(t) && !resultsToSend.contains(r))) {
 							resultsToSend.add(r);
 						}
 					}
 					else {
-						if(r.getInstanceOf().contains(t) || r.getInstanceOf().contains("Autre"))
+						if(r.getInstanceOf().contains(t))
 								resultsToSend.add(r);
 					}
 				}
@@ -191,7 +192,8 @@ public class SearchQuery {
 			Object value2 = Jvalue.get("value");
 			JSONObject Jvalue2 = (JSONObject) value2;
 			String instanceOfName = ResultQuery.getPageName((String) Jvalue2.get("id"));
-			if(instanceOfName == null) {
+			
+			if(!Arrays.asList(types).contains(instanceOfName)) {
 				res.setInstanceOf("Autre");
 			}
 			else {

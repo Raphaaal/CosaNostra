@@ -50,10 +50,37 @@ public class PageController {
 			return "index.html";
 		}
 		String search = request.getParameter("search");
+		ArrayList<String> types = new ArrayList<>();
+		
+		if(request.getParameter("autre") != null && request.getParameter("autre").equals("on")) {
+			types.add(new String("Autre"));
+		}
+		if(request.getParameter("human") != null && request.getParameter("human").equals("on")) {
+			types.add(new String("être humain"));
+		}
+		if(request.getParameter("painting") != null && request.getParameter("painting").equals("on")) {
+			types.add(new String("peinture"));
+			types.add(new String("type artistique"));
+		}
+		if(request.getParameter("book") != null && request.getParameter("book").equals("on")) {
+			types.add(new String("œuvre littéraire"));
+		}
+		if(request.getParameter("film") != null && request.getParameter("film").equals("on")) {
+			types.add(new String("film"));
+			types.add(new String("série télévisée"));
+		}
+		if(request.getParameter("music") != null && request.getParameter("music").equals("on")) {
+			types.add(new String("forme musicale"));
+			types.add(new String("terme musical"));
+			types.add(new String("chanson"));
+			types.add(new String("album"));
+			types.add(new String("single"));
+		}
 
-		System.out.println("Recherche :" + search);
+		
+		String[] typesArray = types.toArray(new String[types.size()]);
 
-		SearchQuery sq = new SearchQuery(search);
+		SearchQuery sq = new SearchQuery(search, typesArray);
 
 		List<Result> wikiResult = sq.getResultsList();
 		
