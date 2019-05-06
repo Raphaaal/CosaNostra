@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3548188a-870e-466c-8e9e-a102ce159f4c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/signin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosaNostra/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/PageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/java/connect/MySQLConnUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/java/connect/MySQLConnUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/java/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/java/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/java/queries/UserQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/java/queries/UserQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/resources/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/submissionResult.html" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/submissionResult.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cosanostra.sql" beforeDir="false" afterPath="$PROJECT_DIR$/cosanostra.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/layout/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/layout/navbar.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/CosaNostra/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,18 +13,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/PageController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/queries/UserQuery.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -56,11 +34,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CosaNostra/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
               <caret line="1" column="52" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/resources/templates/layout/navbar.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="167" selection-start-line="15" selection-start-column="158" selection-end-line="15" selection-end-column="167" />
             </state>
           </provider>
         </entry>
@@ -155,6 +142,7 @@
         <option value="$PROJECT_DIR$/CosaNostra/src/main/java/models/User.java" />
         <option value="$PROJECT_DIR$/cosanostra.sql" />
         <option value="$PROJECT_DIR$/CosaNostra/.gitignore" />
+        <option value="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/layout/navbar.html" />
       </list>
     </option>
   </component>
@@ -276,6 +264,15 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="CosaNostra" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CosaNostra" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -290,12 +287,13 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557129488397" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557131716466" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RecentsManager">
@@ -336,18 +334,18 @@
       <updated>1554707620763</updated>
       <workItem from="1554707626577" duration="482000" />
       <workItem from="1554712101013" duration="4168000" />
-      <workItem from="1557125478897" duration="3962000" />
+      <workItem from="1557125478897" duration="4400000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8612000" />
+    <option name="totallyTimeSpent" value="9050000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21387696" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21387696" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -358,7 +356,7 @@
       <window_info id="Web" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.35060242" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.15421687" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -371,10 +369,11 @@
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info anchor="bottom" id="Version Control" order="14" />
+      <window_info anchor="right" id="Preview" visible="true" weight="0.3297568" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.18526466" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.18526466" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Database" order="6" />
@@ -522,6 +521,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="52" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/resources/templates/layout/navbar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="167" selection-start-line="15" selection-start-column="158" selection-end-line="15" selection-end-column="167" />
         </state>
       </provider>
     </entry>
