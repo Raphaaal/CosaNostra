@@ -15,6 +15,7 @@ public class FinalResult {
 	private String dateOfBirth; // P569
 	private String occupation; // P106
 	private String style; // P136
+	private String instanceOf;//P31
 	private Map<String, String> identity;
 	private Map<String, String> relatedPagesIds;
 	private Map<String, String> relatedServices; //MusicBrainz P434, Twitter P2002, Spotify P1902
@@ -22,7 +23,7 @@ public class FinalResult {
 	
 
 	public FinalResult(String name, String photoUrl, String pageId, String desc, String nationality, String gender,
-			String dateOfBirth, String occupation, String style) {
+			String dateOfBirth, String occupation, String style,String instanceOf) {
 		this.name = name;
 		this.photoUrl = photoUrl;
 		this.pageId = pageId;
@@ -32,19 +33,35 @@ public class FinalResult {
 		this.dateOfBirth = dateOfBirth;
 		this.occupation = occupation;
 		this.style = style;
+		this.instanceOf=instanceOf;
 		this.relatedPagesIds = new HashMap();
 		this.relatedServices = new HashMap();
 		this.identity = new HashMap();
 	}
 	
 
+
 	@Override
 	public String toString() {
 		return "FinalResult [name=" + name + ", photoUrl=" + photoUrl + ", pageId=" + pageId + ", desc=" + desc
 				+ ", nationality=" + nationality + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth
-				+ ", occupation=" + occupation + ", style=" + style + ", identity=" + getIdentity() + ", relatedPagesIds="
-				+ relatedPagesIds + ", relatedServices=" + relatedServices + "]";
+				+ ", occupation=" + occupation + ", style=" + style + ", instanceOf=" + instanceOf + ", identity="
+				+ identity + ", relatedPagesIds=" + relatedPagesIds + ", relatedServices=" + relatedServices + "]";
 	}
+
+
+
+	public String getInstanceOf() {
+		return instanceOf;
+	}
+
+
+
+	public void setInstanceOf(String instanceOf) {
+		this.instanceOf = instanceOf;
+	}
+
+
 
 	public Map<String, String> getIdentity() {
 		if(dateOfBirth != null) {
@@ -57,6 +74,9 @@ public class FinalResult {
 			identity.put("Occupation",occupation);
 		}if(style != null) {
 			identity.put("Style",style);
+		}
+		if(instanceOf != null) {
+			identity.put("InstanceOf",instanceOf);
 		}
 		return identity;
 	}

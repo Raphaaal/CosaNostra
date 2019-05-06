@@ -37,9 +37,10 @@ public class SearchQuery {
 
 	private List<Map<String, Result>> resultsList= new ArrayList();
 	private String query;
-	
-	public SearchQuery(String query) {
+	private String[] types;
+	public SearchQuery(String query,String ...types) {
 		this.query=Objects.requireNonNull(query);
+		this.types=Objects.requireNonNull(types);
 	}
 
 	/**
@@ -53,20 +54,14 @@ public class SearchQuery {
 		// Search on WikiData and create results with type and page_id
 		this.createSearchResultsList();
 		
-		// Populate each result with properties name and photo
+		// Populate each result with properties name and photo and instanceOf
 		List<Result> resultsIdList=null;
 		for(int i=0;i<this.resultsList.size();i++) {
 			resultsIdList = new ArrayList(this.resultsList.get(i).values());
 			this.getPropertiesFromSearchResult(resultsIdList.get(0));
 		}
+		return createSpecificResultsList(types);
 		
-		// Return the list of results populated
-		List<Result> resultsToSend = new ArrayList();
-		for(Map<String, Result> map : resultsList) {
-			for(Result r : map.values())
-				resultsToSend.add(r);
-		}
-		return resultsToSend;
 	}
 
 	
@@ -102,14 +97,39 @@ public class SearchQuery {
 		// AJOUT DES PAGE_ID ET TYPE DE CHAQUE RESULT
 		for (int i =0; i < Jsearch.size(); ++i) {
 			JSONObject jo = (JSONObject) Jsearch.get(i);
-			Result result = new Result(null, null, null, null, (String) jo.get("title"), (String) jo.get("snippet"));
+			Result result = new Result(null, null, null, null, (String) jo.get("title"), (String) jo.get("snippet"),null);
 			Map<String,Result> map = new HashMap<>();
 			map.put((String) jo.get("title"),result);
 			resultsList.add(map);
 		}
 	}
 
-	
+	/**
+	 * This method filters out the results list according to types provided ("instance of")
+	 * @param types
+	 * @return
+	 */
+	private List<Result> createSpecificResultsList(String ... types) {
+		// Return the list of results populated
+		List<Result> resultsToSend = new ArrayList();
+		for(Map<String, Result> map : resultsList) {
+			for(Result r : map.values()) {
+				for(String t : types) {
+					if(resultsToSend!=null) {
+						if((r.getInstanceOf().contains(t) || r.getInstanceOf().contains("Autre")) && !resultsToSend.contains(r)) {
+							resultsToSend.add(r);
+						}
+					}
+					else {
+						if(r.getInstanceOf().contains(t) || r.getInstanceOf().contains("Autre"))
+								resultsToSend.add(r);
+					}
+				}
+			}
+		}
+		return resultsToSend;
+	}
+
 	/**
 	 * This method populates the full name and picture url of a given Result object. 
 	 * This object must contain a non null page_id field (to query the appropriate WikiData page).
@@ -138,6 +158,11 @@ public class SearchQuery {
 		JSONObject Jid = (JSONObject) Jentities.get(res.getPageId());
 		Object claims = Jid.get("claims");
 		JSONObject Jclaims = (JSONObject) claims;
+		
+		// Only if result contains any claims
+		
+		if(Jclaims.size()!=0) {
+		
 		Object photo = Jclaims.getOrDefault("P18", "wallou photo");
 		if (photo.toString() != "wallou photo") {
 			JSONArray Jphoto = (JSONArray) photo;
@@ -150,6 +175,28 @@ public class SearchQuery {
 			Object photoName = Jvalue.get("value");
 			String finalPhotoName = photoName.toString().replaceAll(" ", "_");
 			res.setPhotoUrl("https://commons.wikimedia.org/wiki/Special:FilePath/"+finalPhotoName);
+		}
+		
+		
+		//Ajout instanceOf
+		Object instanceOf = Jclaims.getOrDefault("P31", "wallou instanceOf");
+		if (instanceOf.toString() != "wallou instanceOf") {
+			JSONArray Jinstance = (JSONArray) instanceOf;
+			Object mainsnak = Jinstance.get(0);
+			JSONObject Jmainsnak = (JSONObject) mainsnak;
+			Object datavalue = Jmainsnak.get("mainsnak");
+			JSONObject Jdatavalue = (JSONObject) datavalue;
+			Object value = Jdatavalue.get("datavalue");
+			JSONObject Jvalue = (JSONObject) value;
+			Object value2 = Jvalue.get("value");
+			JSONObject Jvalue2 = (JSONObject) value2;
+			String instanceOfName = ResultQuery.getPageName((String) Jvalue2.get("id"));
+			if(instanceOfName == null) {
+				res.setInstanceOf("Autre");
+			}
+			else {
+				res.setInstanceOf(instanceOfName.toString());
+			}
 		}
 		
 		// AJOUT NOM DU RESULT
@@ -170,12 +217,20 @@ public class SearchQuery {
 		else {
 			res.setName(query);
 		}
+		}
+		else {
+		// If size == 0 this means this result is just a search result linking to multiple pages
+		res.setInstanceOf("Search");
+		}
 	}
+	
+	
 	
 
 	public static void main(String[] args) throws IOException, ParseException {
 		String query = "macron";
-		SearchQuery sq = new SearchQuery(query);
+		String[] types = {"être humain"};
+		SearchQuery sq = new SearchQuery(query, types);
 		
 		System.out.println("------ LISTE DES OBJETS FINAUX RENVOYES -----------");
 		System.out.println(sq.getResultsList());

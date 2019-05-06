@@ -23,7 +23,7 @@ public class ResultQuery {
 	
 	public static FinalResult getFinalResult(String pageId) throws IOException, ParseException {
 		
-		FinalResult fRes = new FinalResult(null, null, pageId, null, null, null, null, null, null); 
+		FinalResult fRes = new FinalResult(null, null, pageId, null, null, null, null, null, null,null); 
 		
 		HttpTransport httpTransport = new NetHttpTransport();
 		HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
@@ -110,8 +110,23 @@ public class ResultQuery {
 			String nationalityName = getPageName((String) Jvalue2.get("id"));
 			fRes.setNationality(nationalityName.toString());
 		}
-
 		
+		//Ajout instanceOf
+		Object instanceOf = Jclaims.getOrDefault("P31", "wallou instanceOf");
+		if (instanceOf.toString() != "wallou instanceOf") {
+			JSONArray Jinstance = (JSONArray) instanceOf;
+			Object mainsnak = Jinstance.get(0);
+			JSONObject Jmainsnak = (JSONObject) mainsnak;
+			Object datavalue = Jmainsnak.get("mainsnak");
+			JSONObject Jdatavalue = (JSONObject) datavalue;
+			Object value = Jdatavalue.get("datavalue");
+			JSONObject Jvalue = (JSONObject) value;
+			Object value2 = Jvalue.get("value");
+			JSONObject Jvalue2 = (JSONObject) value2;
+			String instanceOfName = getPageName((String) Jvalue2.get("id"));
+			fRes.setInstanceOf(instanceOfName.toString());
+		}
+
 		//AJOUT OCCUPATION
 		Object occupation = Jclaims.getOrDefault("P106", "wallou occupation");
 		if (occupation.toString() != "wallou occupation") {
@@ -258,6 +273,7 @@ public class ResultQuery {
 	*/
 	
 	
+	
 	public static String getSummary(String title) throws IOException, ParseException {
 		HttpTransport httpTransport = new NetHttpTransport();
 		HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
@@ -288,7 +304,7 @@ public class ResultQuery {
 	}
 	
 	public static void main(String[] args) throws IOException, ParseException {
-		System.out.println(getFinalResult("Q5608"));
+		System.out.println(getFinalResult("Q3052772"));
 	}
 
 }
