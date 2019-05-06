@@ -30,7 +30,7 @@ body{
 
 }
 .nav-color{
-	background-color:none;
+	background-color: none;
 }
 
 .principal-title{
@@ -42,7 +42,6 @@ body{
 	color:white;
 }
 
-<<<<<<< HEAD
 /* FOR SIGNUP PAGE */
 .note
 {
@@ -62,16 +61,15 @@ body{
 .form-control{
     border-radius:1.5rem;
 }
-.btnSubmit
-{
-    border:none;
-    border-radius:1.5rem;
+.btnSubmit {
+    border: none;
+    border-radius: 1.5rem;
     padding: 1%;
     width: 20%;
     cursor: pointer;
     background: #0062cc;
     color: #fff;
-=======
+}
 .custom-button{
 	color:black;
 >>>>>>> 09f5510e2504d4fcdbed089261e954d88b521696

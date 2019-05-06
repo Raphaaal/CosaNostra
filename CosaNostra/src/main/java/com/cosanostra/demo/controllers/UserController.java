@@ -28,13 +28,31 @@ public class UserController {
     }
     */
 	
-    @RequestMapping(value = "/submissionResult", method = RequestMethod.POST)
-    public String userSubmit(@ModelAttribute User user, ModelMap modelMap) throws ClassNotFoundException, SQLException {
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String userSignup(@ModelAttribute User user, ModelMap modelMap) throws ClassNotFoundException, SQLException {
+
+
+        System.out.println("AZEZAE" + user);
 		modelMap.put("user", user);
-		
-		UserQuery.insertNewUser(user.getLogin(),user.getPassword(), user.getEmail());
+        System.out.println("ZZZZZ" + user);
+
+
+
+        UserQuery.insertNewUser(user.getName(),user.getPassword(), user.getEmail());
 		
 		return "submissionResult";
+    }
+
+
+    @RequestMapping(value = "/signin", method = RequestMethod.POST)
+    public String userSignin(@ModelAttribute User user, ModelMap modelMap) throws ClassNotFoundException, SQLException {
+
+        user = UserQuery.getUser(user.getEmail(),user.getPassword());
+
+        modelMap.put("user", user);
+
+
+        return "submissionResult";
     }
     
 

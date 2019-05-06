@@ -35,8 +35,13 @@ public class PageController {
 	}
 	
 	@GetMapping("/signup")
-	public String subscribe() {
+	public String signup() {
 		return "signup.html";
+	}
+
+	@GetMapping("/signin")
+	public String signin() {
+		return "signin.html";
 	}
 
 	@GetMapping("/search")

@@ -4,14 +4,14 @@ public class User {
 
 	
 	private String email;
-	private String login;
+	private String name;
 	private String password;
 	private  int id;
 	
-	public User(int id,String email, String login, String password) {
+	public User(int id,String email, String name, String password) {
 		this.id=id;
 		this.email = email;
-		this.login = login;
+		this.name = name;
 		this.password = password;
 	}
 	
@@ -20,7 +20,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User [email=" + email + ", login=" + login + ", password=" + password + "]";
+		return "User [email=" + email + ", name=" + name + ", password=" + password + "]";
 	}
 	public String getEmail() {
 		return email;
@@ -28,11 +28,11 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getLogin() {
-		return login;
+	public String getName() {
+		return name;
 	}
-	public void setLogin(String login) {
-		this.login = login;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getPassword() {
 		return password;

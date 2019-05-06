@@ -19,27 +19,27 @@ public class UserQuery {
 	 * @throws SQLException
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		System.out.println(getUser("youb"));
+		System.out.println(getUser("victorfritz.ici@gmail.com", "azerty"));
 	}
 
 	/**
 	 * Create a new user
 	 * 
-	 * @param login
+	 * @param name
 	 * @param password
-	 * @param mail
+	 * @param email
 	 * @return
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static boolean insertNewUser(String login, String password, String email)
+	public static boolean insertNewUser(String name, String password, String email)
 			throws ClassNotFoundException, SQLException {
 		// Get Connection
 		try (Connection connection = (Connection) ConnectionUtils.getMyConnection();) {
 			// Create statement
 			Statement statement = (Statement) connection.createStatement();
 
-			String insert = "INSERT INTO user (login,password,email) VALUES ('" + login + "','" + password + "','"
+			String insert = "INSERT INTO users (name,password,email) VALUES ('" + name + "','" + password + "','"
 					+ email + "');";
 			statement.executeUpdate(insert);
 
@@ -56,27 +56,25 @@ public class UserQuery {
 
 	}
 
-	public static User getUser(String login) throws ClassNotFoundException, SQLException {
+	public static User getUser(String email, String password) throws ClassNotFoundException, SQLException {
 		// Get Connection
 		try (Connection connection = (Connection) ConnectionUtils.getMyConnection();) {
 
 			// Create statement
 			Statement statement = (Statement) connection.createStatement();
 
-			String sql = "Select ID, login, password,email from user where login='" + login + "';";
+			String sql = "Select ID, name, password,email from users where email='" + email + "'and password = '"+ password + "';";
 			// Execute SQL statement returns a ResultSet object.
-			System.out.println(sql);
+
 			ResultSet rs = statement.executeQuery(sql);
 			if(rs.next()) {
 				System.out.println(rs.getString("id"));
 				System.out.println(rs.getString("password"));
-				System.out.println(rs.getString("login"));
-				
-				
-				String email=rs.getString("email");
-				String password=rs.getString("password");
+				System.out.println(rs.getString("name"));
+
+				String name=rs.getString("name");
 				int id=Integer.parseInt(rs.getString("id"));
-				return new User(id,email,login,password);
+				return new User(id,email,name,password);
 			}
 
 			return null;
