@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -30,17 +31,24 @@ import controllers.search.SearchQuery;
 public class PageController {
 
 	@GetMapping("/")
-	public String index() {
+	public String index(HttpSession session) {
 		return "index.html";
 	}
-	
+
 	@GetMapping("/signup")
-	public String signup() {
+	public String signup(HttpSession session) {
 		return "signup.html";
 	}
 
 	@GetMapping("/signin")
-	public String signin() {
+	public String signin(HttpSession session) {
+
+		System.out.println(session);
+
+		if(session.getAttribute("user") != null){
+			return "redirect:" + "/";
+		}
+
 		return "signin.html";
 	}
 

@@ -2,6 +2,7 @@ package com.cosanostra.demo.controllers;
 
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -29,25 +30,24 @@ public class UserController {
     */
 	
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String userSignup(@ModelAttribute User user, ModelMap modelMap) throws ClassNotFoundException, SQLException {
+    public String userSignup(@ModelAttribute User user, ModelMap modelMap, HttpSession session) throws ClassNotFoundException, SQLException {
 
-
-        System.out.println("AZEZAE" + user);
 		modelMap.put("user", user);
-        System.out.println("ZZZZZ" + user);
-
-
 
         UserQuery.insertNewUser(user.getName(),user.getPassword(), user.getEmail());
+
+        session.setAttribute("user", user);
 		
 		return "submissionResult";
     }
 
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    public String userSignin(@ModelAttribute User user, ModelMap modelMap) throws ClassNotFoundException, SQLException {
+    public String userSignin(@ModelAttribute User user, ModelMap modelMap, HttpSession session) throws ClassNotFoundException, SQLException {
 
         user = UserQuery.getUser(user.getEmail(),user.getPassword());
+
+        session.setAttribute("user", user);
 
         modelMap.put("user", user);
 
