@@ -31,10 +31,6 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
-(1, ''Victor'', ''victorfritz@gmail.com'', ''azerty''),
-(4, ''aze'', ''aze@gmail.com'', ''aze'');
-
 --
 -- Indexes for dumped tables
 --
@@ -53,4 +49,4 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
