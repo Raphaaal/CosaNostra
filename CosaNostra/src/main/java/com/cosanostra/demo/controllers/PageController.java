@@ -1,6 +1,7 @@
 package com.cosanostra.demo.controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import models.Favoris;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -26,6 +28,7 @@ import controllers.search.FinalResult;
 import controllers.search.Result;
 import controllers.search.ResultQuery;
 import controllers.search.SearchQuery;
+import queries.FavorisQuery;
 
 @Controller
 public class PageController {
@@ -105,6 +108,25 @@ public class PageController {
 		
 		return "result.html";
 	}
-	
+
+
+	@GetMapping("/favoris/{pageId}")
+	public @ResponseBody
+	void addFavoris(@PathVariable String pageId, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
+
+		FavorisQuery.insertNewFavoris(session.getAttribute("user_id").toString(), pageId);
+
+	}
+
+	@GetMapping("/checkfav/{pageId}")
+	public @ResponseBody
+	Favoris checkFav(@PathVariable String pageId, ModelMap modelMap, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
+
+		Favoris favoris = FavorisQuery.getFavoris(session.getAttribute("user_id").toString(), pageId);
+		System.out.println("FAVVVV" + favoris);
+		modelMap.put("favoris", favoris);
+		return favoris;
+
+	}
 	
 }

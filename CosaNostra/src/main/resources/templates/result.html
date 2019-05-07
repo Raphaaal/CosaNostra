@@ -12,6 +12,9 @@
 				<div class="col-6">
 					<div class="row principal-title justify-content-center" th:text="${result.name}">
 					</div>
+					<div class="row principal-title justify-content-center">
+						Ajouter en favoris :  <i id="heart" class="fa-heart"></i>
+					</div>
 					<div class="row">
 						<div class ="col-12">
 							<div class="accordion" id="accordion">
@@ -66,17 +69,31 @@
 							  </div>
 							</div>
 						</div>
-					
-						
 					</div>
 				</div>
 			</div>
 		</div>
+	<div id="hidden-div">
+		<div id="page_id"  th:text="${result.pageId}">
+		</div>
+	</div>
 	
 	</body>
 	
 	<script>
 	$(document).ready(function(){
+		$('#hidden-div').hide();
+
+		var page_id = $('#page_id').text();
+		$.get("/checkfav/" + page_id).done(function (data) {
+			console.log(data.id);
+			if(data.id === 0){
+				$('#heart').addClass('far')
+			}else{
+				$('#heart').addClass('fas')
+			}
+		});
+
 		$('#desc').each(function(){
 			var trimLength = 400;
 			var trimMargin = 1.2; // don't trim just a couple of words
@@ -101,6 +118,23 @@
 			$('#readless').hide();
 			$('#readmore').show();
 		});
+
+		$('#heart').click(function () {
+
+			$.get("/favoris/" + page_id).done(function () {
+				console.log('success');
+			});
+
+			if($(this).hasClass('far')){
+				$(this).removeClass('far');
+				$(this).addClass('fas')
+			}
+			else{
+				$(this).removeClass('fas');
+				$(this).addClass('far')
+			}
+
+		})
 	});
 	</script>
 </html>
