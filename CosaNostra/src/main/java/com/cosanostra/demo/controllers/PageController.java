@@ -43,9 +43,8 @@ public class PageController {
 	@GetMapping("/signin")
 	public String signin(HttpSession session) {
 
-		System.out.println(session);
 
-		if(session.getAttribute("user") != null){
+		if(session.getAttribute("user_name") != null){
 			return "redirect:" + "/";
 		}
 
@@ -55,7 +54,7 @@ public class PageController {
 	@GetMapping("/search")
 	public String search(HttpServletRequest request, ModelMap modelMap) throws IOException, ParseException {
 		if (request.getParameter("search").equals("")) {
-			return "index.html";
+			return "redirect:" + "/";
 		}
 		String search = request.getParameter("search");
 		ArrayList<String> types = new ArrayList<>();

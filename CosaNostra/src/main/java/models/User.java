@@ -22,6 +22,15 @@ public class User {
 	public String toString() {
 		return "User [email=" + email + ", name=" + name + ", password=" + password + "]";
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getEmail() {
 		return email;
 	}

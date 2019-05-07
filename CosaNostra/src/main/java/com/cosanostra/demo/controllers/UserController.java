@@ -36,23 +36,25 @@ public class UserController {
 
         UserQuery.insertNewUser(user.getName(),user.getPassword(), user.getEmail());
 
-        session.setAttribute("user", user);
-		
-		return "submissionResult";
+        session.setAttribute("user_name", user.getName());
+        session.setAttribute("user_id", user.getId());
+
+        return "redirect:" + "/";
     }
 
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     public String userSignin(@ModelAttribute User user, ModelMap modelMap, HttpSession session) throws ClassNotFoundException, SQLException {
 
+
         user = UserQuery.getUser(user.getEmail(),user.getPassword());
 
-        session.setAttribute("user", user);
+        session.setAttribute("user_name", user.getName());
+        session.setAttribute("user_id", user.getId());
 
         modelMap.put("user", user);
 
-
-        return "submissionResult";
+        return "redirect:" + "/";
     }
     
 

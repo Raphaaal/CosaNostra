@@ -10,16 +10,20 @@
       		<li class="nav-item active">
         		<a class="nav-link" href="#">Test <span class="sr-only">(current)</span></a>
       		</li>
-      		<li class="nav-item">
-        		<a class="nav-link" href="#">Test</a>
-      		</li>
-      		<li class="nav-item dropdown">
-        		<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Connexion</a>
-        		<div class="dropdown-menu" aria-labelledby="dropdown">
-          			<a class="dropdown-item" href="/signin">Signin</a>
-          			<a class="dropdown-item" href="/signup">Signup</a>
+      		<li class="nav-item dropdown" th:if="${session.user_id}">
+        		<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${session.user_name}"></a>
+        		<div class="dropdown-menu" aria-labelledby="dropdown1">
+					<a class="dropdown-item" href="/myaccount">Mon compte</a>
+          			<a class="dropdown-item" href="/logout">Se déconnecter</a>
         		</div>
       		</li>
+			<li class="nav-item dropdown" th:if="${session.user_id == null	}">
+				<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Connexion</a>
+				<div class="dropdown-menu" aria-labelledby="dropdown2">
+					<a class="dropdown-item" href="/signin">Signin</a>
+					<a class="dropdown-item" href="/signup">Signup</a>
+				</div>
+			</li>
     	</ul>
   	</div>
 </nav>
