@@ -54,18 +54,17 @@ public class SearchQuery {
 	public List<Result> getResultsList() throws IOException, ParseException {
 		// Search on WikiData and create results with type and page_id
 		this.createSearchResultsList();
-		
+
 		// Populate each result with properties name and photo and instanceOf
-		List<Result> resultsIdList=null;
-		for(int i=0 ; i<this.resultsList.size() ; i++) {
+		List<Result> resultsIdList = null;
+		for(int i = 0 ; i < this.resultsList.size() ; i++) {
 			resultsIdList = new ArrayList(this.resultsList.get(i).values());
 			this.getPropertiesFromSearchResult(resultsIdList.get(0));
 		}
 		return createSpecificResultsList(types);
-		
+
 	}
 
-	
 	/**
 	 * This method creates a list of Result objects from WikiData related to the title passed as a parameter.
 	 * The list and its Result elements are created on the fly. The Result objects are populated with their page id and type (description).
@@ -88,13 +87,13 @@ public class SearchQuery {
 		HttpRequest request = requestFactory.buildGetRequest(url);
 		HttpResponse httpResponse = request.execute();
 		JSONObject response = (JSONObject) parser.parse(httpResponse.parseAsString());
-		
+
 		List<String> ids=new ArrayList<>();
 		Object query =  response.get("query");
 		JSONObject Jquery = (JSONObject) query;
 		Object search =  Jquery.get("search");
 		JSONArray Jsearch = (JSONArray) search;
-		
+
 		// AJOUT DES PAGE_ID ET TYPE DE CHAQUE RESULT
 		for (int i =0; i < Jsearch.size(); ++i) {
 			JSONObject jo = (JSONObject) Jsearch.get(i);
@@ -115,16 +114,15 @@ public class SearchQuery {
 		List<Result> resultsToSend = new ArrayList();
 		for(Map<String, Result> map : resultsList) {
 			for(Result r : map.values()) {
-				System.out.println(r.getInstanceOf());
 				for(String t : types) {
-					if(resultsToSend!=null) {
+					if(resultsToSend != null) {
 						if((r.getInstanceOf().contains(t) && !resultsToSend.contains(r))) {
 							resultsToSend.add(r);
 						}
 					}
 					else {
 						if(r.getInstanceOf().contains(t))
-								resultsToSend.add(r);
+							resultsToSend.add(r);
 					}
 				}
 			}
@@ -160,81 +158,72 @@ public class SearchQuery {
 		JSONObject Jid = (JSONObject) Jentities.get(res.getPageId());
 		Object claims = Jid.get("claims");
 		JSONObject Jclaims = (JSONObject) claims;
-		
+
 		// Only if result contains any claims
-		
 		if(Jclaims.size()!=0) {
-		
-		Object photo = Jclaims.getOrDefault("P18", "wallou photo");
-		if (photo.toString() != "wallou photo") {
-			JSONArray Jphoto = (JSONArray) photo;
-			Object mainsnak = Jphoto.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object photoName = Jvalue.get("value");
-			String finalPhotoName = photoName.toString().replaceAll(" ", "_");
-			res.setPhotoUrl("https://commons.wikimedia.org/wiki/Special:FilePath/"+finalPhotoName);
-		}
-		
-		
-		//Ajout instanceOf
-		Object instanceOf = Jclaims.getOrDefault("P31", "wallou instanceOf");
-		if (instanceOf.toString() != "wallou instanceOf") {
-			JSONArray Jinstance = (JSONArray) instanceOf;
-			Object mainsnak = Jinstance.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object value2 = Jvalue.get("value");
-			JSONObject Jvalue2 = (JSONObject) value2;
-			String instanceOfName = ResultQuery.getPageName((String) Jvalue2.get("id"));
-			
-			if(!Arrays.asList(types).contains(instanceOfName)) {
-				res.setInstanceOf("Autre");
+
+			Object photo = Jclaims.getOrDefault("P18", "wallou photo");
+			if (photo.toString() != "wallou photo") {
+				JSONArray Jphoto = (JSONArray) photo;
+				Object mainsnak = Jphoto.get(0);
+				JSONObject Jmainsnak = (JSONObject) mainsnak;
+				Object datavalue = Jmainsnak.get("mainsnak");
+				JSONObject Jdatavalue = (JSONObject) datavalue;
+				Object value = Jdatavalue.get("datavalue");
+				JSONObject Jvalue = (JSONObject) value;
+				Object photoName = Jvalue.get("value");
+				String finalPhotoName = photoName.toString().replaceAll(" ", "_");
+				res.setPhotoUrl("https://commons.wikimedia.org/wiki/Special:FilePath/"+finalPhotoName);
+			}
+
+
+			//Ajout instanceOf
+			Object instanceOf = Jclaims.getOrDefault("P31", "wallou instanceOf");
+			if (instanceOf.toString() != "wallou instanceOf") {
+				JSONArray Jinstance = (JSONArray) instanceOf;
+				Object mainsnak = Jinstance.get(0);
+				JSONObject Jmainsnak = (JSONObject) mainsnak;
+				Object datavalue = Jmainsnak.get("mainsnak");
+				JSONObject Jdatavalue = (JSONObject) datavalue;
+				Object value = Jdatavalue.get("datavalue");
+				JSONObject Jvalue = (JSONObject) value;
+				Object value2 = Jvalue.get("value");
+				JSONObject Jvalue2 = (JSONObject) value2;
+				String instanceOfName = ResultQuery.getPageName((String) Jvalue2.get("id"));
+
+				if(!Arrays.asList(types).contains(instanceOfName)) {
+					if (instanceOfName.contains("disambiguation page")) {
+						res.setInstanceOf("Search");
+					}
+					else {
+						res.setInstanceOf("Autre");
+					}
+				}
+				else {
+					res.setInstanceOf(instanceOfName.toString());
+				}
 			}
 			else {
-				res.setInstanceOf(instanceOfName.toString());
+				res.setInstanceOf("Autre");
 			}
-		}
-		
-		// AJOUT NOM DU RESULT
-		Object name = Jclaims.getOrDefault("P1559", "wallou nom");
-		if (name.toString() != "wallou nom") {
-			JSONArray Jname = (JSONArray) name;
-			Object mainsnak = Jname.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object namevalue = Jvalue.get("value");
-			JSONObject Jnamevalue = (JSONObject) namevalue;
-			Object nametext = Jnamevalue.get("text");
-			res.setName(nametext.toString());
+
+			// AJOUT NOM DU RESULT
+			res.setName(ResultQuery.getPageName(res.getPageId()));
 		}
 		else {
-			res.setName(query);
-		}
-		}
-		else {
-		// If size == 0 this means this result is just a search result linking to multiple pages
-		res.setInstanceOf("Search");
+			// If size == 0 this means this result is just a search result linking to multiple pages
+			res.setInstanceOf("Search");
 		}
 	}
-	
-	
-	
+
+
+
 
 	public static void main(String[] args) throws IOException, ParseException {
-		String query = "macron";
-		String[] types = {"être humain"};
+		String query = "test";
+		String[] types = {"Autre"};
 		SearchQuery sq = new SearchQuery(query, types);
-		
+
 		System.out.println("------ LISTE DES OBJETS FINAUX RENVOYES -----------");
 		System.out.println(sq.getResultsList());
 

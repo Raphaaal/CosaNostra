@@ -65,11 +65,11 @@ public class FinalResult {
 
 	public Map<String, String> getIdentity() {
 		if(dateOfBirth != null) {
-			identity.put("Date de naissance",dateOfBirth);
+			identity.put("Date of birth",dateOfBirth);
 		}if(nationality != null) {
-			identity.put("Nationalité",nationality);
+			identity.put("Nationality",nationality);
 		}if(gender != null) {
-			identity.put("Genre",gender);
+			identity.put("Gender",gender);
 		}if(occupation != null) {
 			identity.put("Occupation",occupation);
 		}if(style != null) {

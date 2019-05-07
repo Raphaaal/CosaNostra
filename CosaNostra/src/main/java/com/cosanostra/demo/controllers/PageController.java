@@ -63,23 +63,25 @@ public class PageController {
 			types.add(new String("Autre"));
 		}
 		if(request.getParameter("human") != null && request.getParameter("human").equals("on")) {
-			types.add(new String("être humain"));
+			types.add(new String("human"));
+			types.add(new String("Human"));
+
 		}
 		if(request.getParameter("painting") != null && request.getParameter("painting").equals("on")) {
-			types.add(new String("peinture"));
-			types.add(new String("type artistique"));
+			types.add(new String("painting"));
+			types.add(new String("artistic type"));
 		}
 		if(request.getParameter("book") != null && request.getParameter("book").equals("on")) {
-			types.add(new String("œuvre littéraire"));
+			types.add(new String("literary work"));
 		}
 		if(request.getParameter("film") != null && request.getParameter("film").equals("on")) {
 			types.add(new String("film"));
-			types.add(new String("série télévisée"));
+			types.add(new String("television series"));
 		}
 		if(request.getParameter("music") != null && request.getParameter("music").equals("on")) {
-			types.add(new String("forme musicale"));
-			types.add(new String("terme musical"));
-			types.add(new String("chanson"));
+			types.add(new String("music form"));
+			types.add(new String("music term"));
+			types.add(new String("song"));
 			types.add(new String("album"));
 			types.add(new String("single"));
 		}
