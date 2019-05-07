@@ -76,7 +76,7 @@ public class FinalResult {
 			identity.put("Style",style);
 		}
 		if(instanceOf != null) {
-			identity.put("InstanceOf",instanceOf);
+			identity.put("Type",instanceOf);
 		}
 		return identity;
 	}

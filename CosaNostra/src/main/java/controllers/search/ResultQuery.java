@@ -77,7 +77,6 @@ public class ResultQuery {
 			fRes.setDateOfBirth(nametext.toString());
 		}
 
-		
 		//AJOUT DU SEXE
 		Object gender = Jclaims.getOrDefault("P21", "wallou sexe");
 		if (gender.toString() != "wallou sexe") {
@@ -93,7 +92,6 @@ public class ResultQuery {
 			String genderName = getPageName((String) Jvalue2.get("id"));
 			fRes.setGender(genderName.toString());
 		}
-
 		
 		//AJOUT NATIONALITY
 		Object nationality = Jclaims.getOrDefault("P27", "wallou nationality");
@@ -111,7 +109,7 @@ public class ResultQuery {
 			fRes.setNationality(nationalityName.toString());
 		}
 		
-		//Ajout instanceOf
+		//AJOUT INSTANCE OF
 		Object instanceOf = Jclaims.getOrDefault("P31", "wallou instanceOf");
 		if (instanceOf.toString() != "wallou instanceOf") {
 			JSONArray Jinstance = (JSONArray) instanceOf;
@@ -203,6 +201,9 @@ public class ResultQuery {
 			fRes.getRelatedServices().put("Spotify", "https://open.spotify.com/artist/"+value2.toString());
 		}
 		
+		//Wikipedia page
+		fRes.getRelatedServices().put("Wikipedia","https://en.wikipedia.org/wiki/" + getPageName(pageId));
+		
 		//AJOUT DESCRIPTION
 		fRes.setDesc(getSummary(fRes.getName()));
 				
@@ -219,8 +220,9 @@ public class ResultQuery {
 		baseUrl.put("action","wbgetentities");
 		baseUrl.put("ids",pageId);
 		baseUrl.put("props","labels");
-		baseUrl.put("languages","fr");
+		baseUrl.put("languages","en");
 		baseUrl.put("format", "json");
+		//System.out.println(baseUrl);
 		HttpRequest finalRequest = requestFactory.buildGetRequest(baseUrl);
 		HttpResponse finalHttpResponse = finalRequest.execute();
 		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
@@ -231,7 +233,7 @@ public class ResultQuery {
 		JSONObject Jpage = (JSONObject) page;
 		Object labels = Jpage.get("labels");
 		JSONObject Jlabels = (JSONObject) labels;
-		Object lang = Jlabels.get("fr");
+		Object lang = Jlabels.get("en");
 		JSONObject Jlang = (JSONObject) lang;
 		Object value = Jlang.get("value");
 		
@@ -304,7 +306,7 @@ public class ResultQuery {
 	}
 	
 	public static void main(String[] args) throws IOException, ParseException {
-		System.out.println(getFinalResult("Q3052772"));
+		System.out.println(getFinalResult("Q218680"));
 	}
 
 }

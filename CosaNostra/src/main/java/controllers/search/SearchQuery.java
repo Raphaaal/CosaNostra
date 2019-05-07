@@ -57,7 +57,7 @@ public class SearchQuery {
 		
 		// Populate each result with properties name and photo and instanceOf
 		List<Result> resultsIdList=null;
-		for(int i=0;i<this.resultsList.size();i++) {
+		for(int i=0 ; i<this.resultsList.size() ; i++) {
 			resultsIdList = new ArrayList(this.resultsList.get(i).values());
 			this.getPropertiesFromSearchResult(resultsIdList.get(0));
 		}
@@ -115,6 +115,7 @@ public class SearchQuery {
 		List<Result> resultsToSend = new ArrayList();
 		for(Map<String, Result> map : resultsList) {
 			for(Result r : map.values()) {
+				System.out.println(r.getInstanceOf());
 				for(String t : types) {
 					if(resultsToSend!=null) {
 						if((r.getInstanceOf().contains(t) && !resultsToSend.contains(r))) {
