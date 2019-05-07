@@ -63,9 +63,29 @@ public class FavorisQuery {
 			}
 
 			return new Favoris();
-
 		}
+	}
 
+	public static boolean RemoveFavoris(String user_id, String page_id) throws ClassNotFoundException, SQLException {
+
+		// Get Connection
+		try (Connection connection = (Connection) ConnectionUtils.getMyConnection();) {
+			// Create statement
+			Statement statement = (Statement) connection.createStatement();
+
+			String sql = "DELETE from favoris where user_id='" + user_id + "'and page_id = '"+ page_id + "';";
+			statement.executeUpdate(sql);
+
+		} catch (SQLException se) {
+			// Handle errors for JDBC
+			se.printStackTrace();
+			return false;
+		} catch (Exception e) {
+			// Handle errors for Class.forName
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 }

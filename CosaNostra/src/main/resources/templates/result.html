@@ -87,7 +87,6 @@
 		var page_id = $('#page_id').text();
 
 		$.get("/checkfav/" + page_id).done(function (data) {
-			console.log(data.id);
 			if(data.id === 0){
 				$('#heart').addClass('far')
 			}else{
@@ -122,15 +121,13 @@
 
 		$('#heart').click(function () {
 
-			$.get("/favoris/" + page_id).done(function (data) {
-				console.log(data);
-			});
-
 			if($(this).hasClass('far')){
+				$.get("/favoris/" + page_id);
 				$(this).removeClass('far');
 				$(this).addClass('fas')
 			}
 			else{
+				$.get("/deletefav/" + page_id);
 				$(this).removeClass('fas');
 				$(this).addClass('far')
 			}

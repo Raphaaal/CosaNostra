@@ -114,10 +114,9 @@ public class PageController {
 
 	@GetMapping("/favoris/{pageId}")
 	public @ResponseBody
-	boolean addFavoris(@PathVariable String pageId, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
+	void addFavoris(@PathVariable String pageId, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
 
 		FavorisQuery.insertNewFavoris(session.getAttribute("user_id").toString(), pageId);
-		return true;
 
 
 	}
@@ -127,10 +126,15 @@ public class PageController {
 	Favoris checkFav(@PathVariable String pageId, ModelMap modelMap, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
 
 		Favoris favoris = FavorisQuery.getFavoris(session.getAttribute("user_id").toString(), pageId);
-		System.out.println("FAVVVV" + favoris);
 		modelMap.put("favoris", favoris);
 		return favoris;
 
+	}
+
+	@GetMapping("/deletefav/{pageId}")
+	public @ResponseBody
+	void deleteFav(@PathVariable String pageId, ModelMap modelMap, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
+		FavorisQuery.RemoveFavoris(session.getAttribute("user_id").toString(), pageId);
 	}
 	
 }
