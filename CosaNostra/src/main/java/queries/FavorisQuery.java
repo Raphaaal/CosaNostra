@@ -22,6 +22,9 @@ public class FavorisQuery {
 	 */
 	public static boolean insertNewFavoris(String user_id, String page_id)
 			throws ClassNotFoundException, SQLException {
+
+		System.out.println("USER ID" + user_id);
+		System.out.println("PAGE_ID" + page_id);
 		// Get Connection
 		try (Connection connection = (Connection) ConnectionUtils.getMyConnection();) {
 			// Create statement

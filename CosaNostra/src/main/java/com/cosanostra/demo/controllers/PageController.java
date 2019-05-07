@@ -55,7 +55,7 @@ public class PageController {
 	}
 
 	@GetMapping("/search")
-	public String search(HttpServletRequest request, ModelMap modelMap) throws IOException, ParseException {
+	public String search(HttpServletRequest request, ModelMap modelMap, HttpSession session) throws IOException, ParseException {
 		if (request.getParameter("search").equals("")) {
 			return "redirect:" + "/";
 		}
@@ -102,7 +102,7 @@ public class PageController {
 	}
 
 	@GetMapping("/result/{pageId}")
-	public String result(@PathVariable String pageId, ModelMap modelMap) throws IOException, ParseException {
+	public String result(@PathVariable String pageId, ModelMap modelMap, HttpSession session) throws IOException, ParseException {
 		
 		FinalResult result = ResultQuery.getFinalResult(pageId);
 		
@@ -114,9 +114,11 @@ public class PageController {
 
 	@GetMapping("/favoris/{pageId}")
 	public @ResponseBody
-	void addFavoris(@PathVariable String pageId, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
+	boolean addFavoris(@PathVariable String pageId, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
 
 		FavorisQuery.insertNewFavoris(session.getAttribute("user_id").toString(), pageId);
+		return true;
+
 
 	}
 

@@ -85,6 +85,7 @@
 		$('#hidden-div').hide();
 
 		var page_id = $('#page_id').text();
+
 		$.get("/checkfav/" + page_id).done(function (data) {
 			console.log(data.id);
 			if(data.id === 0){
@@ -121,8 +122,8 @@
 
 		$('#heart').click(function () {
 
-			$.get("/favoris/" + page_id).done(function () {
-				console.log('success');
+			$.get("/favoris/" + page_id).done(function (data) {
+				console.log(data);
 			});
 
 			if($(this).hasClass('far')){
