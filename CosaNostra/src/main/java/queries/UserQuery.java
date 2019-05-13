@@ -83,4 +83,30 @@ public class UserQuery {
 
 	}
 
+	public static User getUser(int id) throws ClassNotFoundException, SQLException {
+		System.out.println(id);
+		// Get Connection
+		try (Connection connection = (Connection) ConnectionUtils.getMyConnection();) {
+
+			// Create statement
+			Statement statement = (Statement) connection.createStatement();
+
+			String sql = "Select ID, name ,email from users where id='" + id + "';";
+			// Execute SQL statement returns a ResultSet object.
+
+			System.out.println(sql);
+
+			ResultSet rs = statement.executeQuery(sql);
+			if(rs.next()) {
+				String email=rs.getString("email");
+				String name=rs.getString("name");
+				return new User(id,email,name, null);
+			}
+
+			return null;
+
+		}
+
+	}
+
 }

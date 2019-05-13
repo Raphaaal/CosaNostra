@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import models.Favoris;
+import models.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -29,6 +30,7 @@ import controllers.search.Result;
 import controllers.search.ResultQuery;
 import controllers.search.SearchQuery;
 import queries.FavorisQuery;
+import queries.UserQuery;
 
 @Controller
 public class PageController {
@@ -41,6 +43,26 @@ public class PageController {
 	@GetMapping("/signup")
 	public String signup(HttpSession session) {
 		return "signup.html";
+	}
+
+	@GetMapping("/profil")
+	public String profil(ModelMap modelMap, HttpSession session) throws IOException, ParseException, ClassNotFoundException, SQLException {
+
+
+		System.out.println("AZEAZEAZEZA" + session.getAttribute("user_name"));
+		session = null;
+		if(session.getAttribute("user_name") == null){
+			return "redirect:" + "/signin";
+		}
+
+		System.out.println("ALLLLLLO" + session.getAttribute("id").toString());
+
+		User user = UserQuery.getUser(Integer.parseInt(session.getAttribute("id").toString()));
+		System.out.println(user);
+
+		modelMap.put("user", user);
+
+		return "profil.html";
 	}
 
 	@GetMapping("/signin")
