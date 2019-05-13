@@ -8,6 +8,8 @@ import models.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FavorisQuery {
 
@@ -63,6 +65,28 @@ public class FavorisQuery {
 			}
 
 			return new Favoris();
+		}
+	}
+
+	public static List<Favoris> getFavoris(String user_id) throws ClassNotFoundException, SQLException {
+		// Get Connection
+		List<Favoris> list = new ArrayList<>();
+		try (Connection connection = (Connection) ConnectionUtils.getMyConnection();) {
+
+			// Create statement
+			Statement statement = (Statement) connection.createStatement();
+
+			String sql = "Select ID, user_id, page_id from favoris where user_id='" + user_id + "';";
+			// Execute SQL statement returns a ResultSet object.
+
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				int id=Integer.parseInt(rs.getString("id"));
+				String page_id=rs.getString("page_id");
+				list.add (new Favoris(id,user_id, page_id));
+			}
+
+			return list;
 		}
 	}
 

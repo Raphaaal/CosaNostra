@@ -48,19 +48,26 @@ public class PageController {
 	@GetMapping("/profil")
 	public String profil(ModelMap modelMap, HttpSession session) throws IOException, ParseException, ClassNotFoundException, SQLException {
 
-
-		System.out.println("AZEAZEAZEZA" + session.getAttribute("user_name"));
-		session = null;
-		if(session.getAttribute("user_name") == null){
+		if(session.getAttribute("user_id") == null){
 			return "redirect:" + "/signin";
 		}
 
-		System.out.println("ALLLLLLO" + session.getAttribute("id").toString());
+		String id=session.getAttribute("user_id").toString();
 
-		User user = UserQuery.getUser(Integer.parseInt(session.getAttribute("id").toString()));
-		System.out.println(user);
+		User user = UserQuery.getUser(Integer.parseInt(id));
+
+		List<Favoris> favorisList = FavorisQuery.getFavoris(id);
+		List<FinalResult> resultList = new ArrayList<>();
+
+		for (Favoris fav: favorisList) {
+			resultList.add(ResultQuery.getFinalResult(fav.getPage_id()));
+
+		}
+
+		modelMap.put("resultList", resultList);
 
 		modelMap.put("user", user);
+
 
 		return "profil.html";
 	}

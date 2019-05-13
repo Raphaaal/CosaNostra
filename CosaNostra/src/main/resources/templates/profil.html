@@ -9,6 +9,30 @@
 			<div class="col-4 img-fluid">
 				<img src="https://www.seekpng.com/png/small/4-49948_anonymous-person-png-banner-library-stock-icon-profil.png">
 			</div>
+			<div class="col-8" style="font-size: 2em; color: white">
+				<div th:text="Nom +  ' : ' + ${user.name}"></div>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<table class="table text-center">
+				<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col" style="color: white;">Nom</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr th:each="result : ${resultList}">
+						<td><img style="width:100px; height:auto;" th:src ="${result.photoUrl}"> </td>
+						<td>
+							<a th:href = "@{'/result/'+${result.pageId}}" target="_blank">
+								<div style="color:white;" th:text="${result.name}">
+								</div>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </body>
