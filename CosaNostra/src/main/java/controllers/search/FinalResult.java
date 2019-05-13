@@ -20,7 +20,7 @@ public class FinalResult {
 	private Map<String, String> identity;
 	private Map<String, String> relatedPagesIds;
 	private Map<String, String> relatedServices; //MusicBrainz P434, Twitter P2002, Spotify P1902
-	private List<String> blacklinks;
+	private List<String> backlinks;
 	
 	
 
@@ -54,13 +54,13 @@ public class FinalResult {
 				+ identity + ", relatedPagesIds=" + relatedPagesIds + ", relatedServices=" + relatedServices + "]";
 	}
 
-	public List<String> getBlacklinks() {
-		return blacklinks;
+	public List<String> getBacklinks() {
+		return backlinks;
 	}
 	
 	
-	public void setBlacklinks(List<String> blacklinks) {
-		this.blacklinks = blacklinks;
+	public void setBacklinks(List<String> backlinks) {
+		this.backlinks = backlinks;
 	}
 
 	public String getInstanceOf() {

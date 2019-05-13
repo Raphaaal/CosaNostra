@@ -1,86 +1,95 @@
 <!DOCTYPE html>
 <html>
-	<head th:replace="layout/head"></head>
-	<body>
-	
-		<nav th:replace="layout/navbar"></nav>
-		<div class="container">
-			<div class="row">
-				<div class="col-6">
-					<img th:src ="${result.photoUrl}" class="img-fluid">
-				</div>
-				<div class="col-6">
-					<div class="row principal-title justify-content-center" th:text="${result.name}">
-					</div>
-					<div class="row principal-title justify-content-center">
-						Ajouter en favoris :  <i id="heart" class="fa-heart"></i>
-					</div>
-					<div class="row">
-						<div class ="col-12">
-							<div class="accordion" id="accordion">
-							  <div class="card">
-							    <div class="card-header" id="headingOne">
-							      <h2 class="mb-0">
-							        <button class="btn btn-link custom-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-							          Summary
-							        </button>
-							      </h2>
-							    </div>
-							
-							    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-							      <div id="desc" class="card-body" th:utext="${result.desc}">
-							      </div>
-							    </div>
-							  </div>
-							  
-							  
-							  <div class="card">
-							    <div class="card-header" id="headingTwo">
-							      <h2 class="mb-0">
-							        <button class="btn btn-link collapsed custom-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-							          Identity
-							        </button>
-							      </h2>
-							    </div>
-							    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-							      <div class="card-body">
-							      	<div th:each="identity : ${result.identity}">
-							      		<div th:text="${identity.key} +  ' : ' + ${identity.value}"></div>
-								    </div>
-							      </div>
-							    </div>
-							  </div>
-							  
-							  <div class="card">
-							    <div class="card-header" id="headingThree">
-							      <h2 class="mb-0">
-							        <button class="btn btn-link collapsed custom-button" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							          Related services
-							        </button>
-							      </h2>
-							    </div>
-							    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-							      <div class="card-body">
-							      	<div th:each="service : ${result.relatedServices}">
-							      		<a th:href = "${service.value}" th:text="${service.key}"></a>
-								    </div>
-							      </div>
-							    </div>
-							  </div>
+<head th:replace="layout/head"></head>
+<body>
 
-								<div class="card">
-									<div class="card-header" id="headingFour">
-										<h2 class="mb-0">
-											<button class="btn btn-link collapsed custom-button" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-												Search recommandation
-											</button>
-										</h2>
+	<nav th:replace="layout/navbar"></nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-6">
+				<img th:src="${result.photoUrl}" class="img-fluid">
+			</div>
+			<div class="col-6">
+				<div class="row principal-title justify-content-center"
+					th:text="${result.name}"></div>
+				<div class="row principal-title justify-content-center">
+					Ajouter en favoris : <i id="heart" class="fa-heart"></i>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="accordion" id="accordion">
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<h2 class="mb-0">
+										<button class="btn btn-link custom-button" type="button"
+											data-toggle="collapse" data-target="#collapseOne"
+											aria-expanded="true" aria-controls="collapseOne">
+											Summary</button>
+									</h2>
+								</div>
+
+								<div id="collapseOne" class="collapse show"
+									aria-labelledby="headingOne" data-parent="#accordion">
+									<div id="desc" class="card-body" th:utext="${result.desc}">
 									</div>
-									<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-										<div class="card-body">
-											<div th:each="backElement : ${result.backLinks}">
-												<a th:href = "${'/search?search=' + backElement.value + '&autre=on'}" th:text="${backElement.value}"></a>
-											</div>
+								</div>
+							</div>
+
+
+							<div class="card">
+								<div class="card-header" id="headingTwo">
+									<h2 class="mb-0">
+										<button class="btn btn-link collapsed custom-button"
+											type="button" data-toggle="collapse"
+											data-target="#collapseTwo" aria-expanded="false"
+											aria-controls="collapseTwo">Identity</button>
+									</h2>
+								</div>
+								<div id="collapseTwo" class="collapse"
+									aria-labelledby="headingTwo" data-parent="#accordion">
+									<div class="card-body">
+										<div th:each="identity : ${result.identity}">
+											<div th:text="${identity.key} +  ' : ' + ${identity.value}"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="card">
+								<div class="card-header" id="headingThree">
+									<h2 class="mb-0">
+										<button class="btn btn-link collapsed custom-button"
+											type="button" data-toggle="collapse"
+											data-target="#collapseThree" aria-expanded="false"
+											aria-controls="collapseThree">Related services</button>
+									</h2>
+								</div>
+								<div id="collapseThree" class="collapse"
+									aria-labelledby="headingThree" data-parent="#accordion">
+									<div class="card-body">
+										<div th:each="service : ${result.relatedServices}">
+											<a th:href="${service.value}" th:text="${service.key}"></a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="card">
+								<div class="card-header" id="headingFour">
+									<h2 class="mb-0">
+										<button class="btn btn-link collapsed custom-button"
+											type="button" data-toggle="collapse"
+											data-target="#collapseFour" aria-expanded="false"
+											aria-controls="collapseFour">Search recommendations</button>
+									</h2>
+								</div>
+								<div id="collapseFour" class="collapse"
+									aria-labelledby="headingFour" data-parent="#accordion">
+									<div class="card-body">
+										<div th:each="backElement : ${result.backlinks}">
+											<a
+												th:href="${'/search?search=' + backElement + '&autre=on'}"
+												th:text="${backElement}"></a>
 										</div>
 									</div>
 								</div>
@@ -90,14 +99,14 @@
 				</div>
 			</div>
 		</div>
-	<div id="hidden-div">
-		<div id="page_id"  th:text="${result.pageId}">
-		</div>
 	</div>
-	
-	</body>
-	
-	<script>
+	<div id="hidden-div">
+		<div id="page_id" th:text="${result.pageId}"></div>
+	</div>
+
+</body>
+
+<script>
 	$(document).ready(function(){
 		$('#hidden-div').hide();
 

@@ -210,7 +210,7 @@ public class ResultQuery {
 		fRes.setDesc(getSummary(fRes.getName()));
 		
 		//AJOUT BACKLINKS
-		fRes.setBlacklinks(getBackLinks(pageId));
+		fRes.setBacklinks(getBackLinks(pageId));
 		
 		return fRes;
 
@@ -230,9 +230,6 @@ public class ResultQuery {
 		HttpRequest finalRequest = requestFactory.buildGetRequest(baseUrl);
 		HttpResponse finalHttpResponse = finalRequest.execute();
 		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
-		
-		System.out.println(finalResponse);
-		
 		Object query = finalResponse.get("query");
 		JSONObject Jquery = (JSONObject) query;
 		Object backlinks = Jquery.get("backlinks");
@@ -245,7 +242,7 @@ public class ResultQuery {
 			String title = (String) Jbl.get("title");
 			backlinksTitles.add(title);
 		}
-		
+		System.out.println(backlinksTitles);
 		return backlinksTitles;
 	}
 	
@@ -341,7 +338,7 @@ public class ResultQuery {
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
-		getBackLinks("Q467402");
+		getBackLinks("Q3052772");
 	}
 
 }
