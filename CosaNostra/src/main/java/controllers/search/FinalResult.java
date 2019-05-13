@@ -21,11 +21,6 @@ public class FinalResult {
 	private Map<String, String> relatedPagesIds;
 	private Map<String, String> relatedServices; //MusicBrainz P434, Twitter P2002, Spotify P1902
 	private List<String> backlinks;
-	
-	
-
-
-
 
 	public FinalResult(String name, String photoUrl, String pageId, String desc, String nationality, String gender,
 			String dateOfBirth, String occupation, String style,String instanceOf) {
@@ -43,8 +38,6 @@ public class FinalResult {
 		this.relatedServices = new HashMap();
 		this.identity = new HashMap();
 	}
-	
-
 
 	@Override
 	public String toString() {
