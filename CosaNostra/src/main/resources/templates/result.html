@@ -67,6 +67,23 @@
 							      </div>
 							    </div>
 							  </div>
+
+								<div class="card">
+									<div class="card-header" id="headingFour">
+										<h2 class="mb-0">
+											<button class="btn btn-link collapsed custom-button" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+												Search recommandation
+											</button>
+										</h2>
+									</div>
+									<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+										<div class="card-body">
+											<div th:each="backElement : ${result.backLinks}">
+												<a th:href = "${'/search?search=' + backElement.value + '&autre=on'}" th:text="${backElement.value}"></a>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
