@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,20 +47,21 @@ public class PageController {
 	}
 
 	@GetMapping("/profil")
-	public String profil(ModelMap modelMap, HttpSession session) throws IOException, ParseException, ClassNotFoundException, SQLException {
+	public String profil(ModelMap modelMap, HttpSession session)
+			throws IOException, ParseException, ClassNotFoundException, SQLException {
 
-		if(session.getAttribute("user_id") == null){
+		if (session.getAttribute("user_id") == null) {
 			return "redirect:" + "/signin";
 		}
 
-		String id=session.getAttribute("user_id").toString();
+		String id = session.getAttribute("user_id").toString();
 
 		User user = UserQuery.getUser(Integer.parseInt(id));
 
 		List<Favoris> favorisList = FavorisQuery.getFavoris(id);
 		List<FinalResult> resultList = new ArrayList<>();
 
-		for (Favoris fav: favorisList) {
+		for (Favoris fav : favorisList) {
 			resultList.add(ResultQuery.getFinalResult(fav.getPage_id()));
 
 		}
@@ -68,15 +70,13 @@ public class PageController {
 
 		modelMap.put("user", user);
 
-
 		return "profil.html";
 	}
 
 	@GetMapping("/signin")
 	public String signin(HttpSession session) {
 
-
-		if(session.getAttribute("user_name") != null){
+		if (session.getAttribute("user_name") != null) {
 			return "redirect:" + "/";
 		}
 
@@ -84,33 +84,34 @@ public class PageController {
 	}
 
 	@GetMapping("/search")
-	public String search(HttpServletRequest request, ModelMap modelMap, HttpSession session) throws IOException, ParseException {
+	public String search(HttpServletRequest request, ModelMap modelMap, HttpSession session)
+			throws IOException, ParseException {
 		if (request.getParameter("search").equals("")) {
 			return "redirect:" + "/";
 		}
 		String search = request.getParameter("search");
 		ArrayList<String> types = new ArrayList<>();
-		
-		if(request.getParameter("autre") != null && request.getParameter("autre").equals("on")) {
+
+		if (request.getParameter("autre") != null && request.getParameter("autre").equals("on")) {
 			types.add(new String("Autre"));
 		}
-		if(request.getParameter("human") != null && request.getParameter("human").equals("on")) {
+		if (request.getParameter("human") != null && request.getParameter("human").equals("on")) {
 			types.add(new String("human"));
 			types.add(new String("Human"));
 
 		}
-		if(request.getParameter("painting") != null && request.getParameter("painting").equals("on")) {
+		if (request.getParameter("painting") != null && request.getParameter("painting").equals("on")) {
 			types.add(new String("painting"));
 			types.add(new String("artistic type"));
 		}
-		if(request.getParameter("book") != null && request.getParameter("book").equals("on")) {
+		if (request.getParameter("book") != null && request.getParameter("book").equals("on")) {
 			types.add(new String("literary work"));
 		}
-		if(request.getParameter("film") != null && request.getParameter("film").equals("on")) {
+		if (request.getParameter("film") != null && request.getParameter("film").equals("on")) {
 			types.add(new String("film"));
 			types.add(new String("television series"));
 		}
-		if(request.getParameter("music") != null && request.getParameter("music").equals("on")) {
+		if (request.getParameter("music") != null && request.getParameter("music").equals("on")) {
 			types.add(new String("music form"));
 			types.add(new String("music term"));
 			types.add(new String("song"));
@@ -118,41 +119,54 @@ public class PageController {
 			types.add(new String("single"));
 		}
 
-		
 		String[] typesArray = types.toArray(new String[types.size()]);
 
 		SearchQuery sq = new SearchQuery(search, typesArray);
 
 		List<Result> wikiResult = sq.getResultsList();
-		
+
 		modelMap.put("results", wikiResult);
-		
+
 		return "search.html";
 	}
 
 	@GetMapping("/result/{pageId}")
-	public String result(@PathVariable String pageId, ModelMap modelMap, HttpSession session) throws IOException, ParseException {
-		
+	public String result(@PathVariable String pageId, ModelMap modelMap, HttpSession session)
+			throws IOException, ParseException {
+
 		FinalResult result = ResultQuery.getFinalResult(pageId);
-		
+
 		modelMap.put("result", result);
-		
+
 		return "result.html";
 	}
 
-
 	@GetMapping("/favoris/{pageId}")
-	public @ResponseBody
-	void addFavoris(@PathVariable String pageId, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
+	public @ResponseBody void addFavoris(@PathVariable String pageId, HttpSession session)
+			throws IOException, ParseException, SQLException, ClassNotFoundException {
 
 		FavorisQuery.insertNewFavoris(session.getAttribute("user_id").toString(), pageId);
+
+	}
+
+	@GetMapping("/logout")
+	public String logout(HttpSession session)
+			throws IOException, ParseException, SQLException, ClassNotFoundException {
+	
+		if (!Objects.isNull(session.getAttribute("user_id")))
+			session.removeAttribute("user_id");
+		if (!Objects.isNull(session.getAttribute("user_name")))
+			session.removeAttribute("user_name");
+		if (!Objects.isNull(session.getAttribute("user_password")))
+			session.removeAttribute("user_password");
+		return "redirect:" + "/";
 
 
 	}
 
 	@GetMapping("/checkfav/{pageId}")
-	public @ResponseBody
-	Favoris checkFav(@PathVariable String pageId, ModelMap modelMap, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
+	public @ResponseBody Favoris checkFav(@PathVariable String pageId, ModelMap modelMap, HttpSession session)
+			throws IOException, ParseException, SQLException, ClassNotFoundException {
 
 		Favoris favoris = FavorisQuery.getFavoris(session.getAttribute("user_id").toString(), pageId);
 		modelMap.put("favoris", favoris);
@@ -161,9 +175,9 @@ public class PageController {
 	}
 
 	@GetMapping("/deletefav/{pageId}")
-	public @ResponseBody
-	void deleteFav(@PathVariable String pageId, ModelMap modelMap, HttpSession session) throws IOException, ParseException, SQLException, ClassNotFoundException {
+	public @ResponseBody void deleteFav(@PathVariable String pageId, ModelMap modelMap, HttpSession session)
+			throws IOException, ParseException, SQLException, ClassNotFoundException {
 		FavorisQuery.RemoveFavoris(session.getAttribute("user_id").toString(), pageId);
 	}
-	
+
 }
