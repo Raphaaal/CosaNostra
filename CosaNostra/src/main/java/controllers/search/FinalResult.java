@@ -1,6 +1,7 @@
 package controllers.search;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -19,8 +20,12 @@ public class FinalResult {
 	private Map<String, String> identity;
 	private Map<String, String> relatedPagesIds;
 	private Map<String, String> relatedServices; //MusicBrainz P434, Twitter P2002, Spotify P1902
+	private List<String> blacklinks;
 	
 	
+
+
+
 
 	public FinalResult(String name, String photoUrl, String pageId, String desc, String nationality, String gender,
 			String dateOfBirth, String occupation, String style,String instanceOf) {
@@ -49,7 +54,14 @@ public class FinalResult {
 				+ identity + ", relatedPagesIds=" + relatedPagesIds + ", relatedServices=" + relatedServices + "]";
 	}
 
-
+	public List<String> getBlacklinks() {
+		return blacklinks;
+	}
+	
+	
+	public void setBlacklinks(List<String> blacklinks) {
+		this.blacklinks = blacklinks;
+	}
 
 	public String getInstanceOf() {
 		return instanceOf;

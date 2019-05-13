@@ -2,6 +2,8 @@ package controllers.search;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.json.simple.JSONArray;
@@ -206,12 +208,47 @@ public class ResultQuery {
 
 		//AJOUT DESCRIPTION
 		fRes.setDesc(getSummary(fRes.getName()));
-
+		
+		//AJOUT BACKLINKS
+		fRes.setBlacklinks(getBackLinks(pageId));
+		
 		return fRes;
 
 	}
 
-
+	public static List<String> getBackLinks(String pageId) throws IOException, ParseException{
+		HttpTransport httpTransport = new NetHttpTransport();
+		HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+		JSONParser parser = new JSONParser();
+		GenericUrl baseUrl = new GenericUrl("https://www.wikipedia.org/w/api.php?");
+		baseUrl.put("action","query");
+		baseUrl.put("format", "json");
+		baseUrl.put("list", "backlinks");
+		baseUrl.put("bltitle", getPageName(pageId));
+		//System.out.println(baseUrl);
+		
+		HttpRequest finalRequest = requestFactory.buildGetRequest(baseUrl);
+		HttpResponse finalHttpResponse = finalRequest.execute();
+		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
+		
+		System.out.println(finalResponse);
+		
+		Object query = finalResponse.get("query");
+		JSONObject Jquery = (JSONObject) query;
+		Object backlinks = Jquery.get("backlinks");
+		JSONArray Jbacklinks = (JSONArray) backlinks;
+		
+		List<String> backlinksTitles = new ArrayList<>();
+		
+		for (Object bl : Jbacklinks) {
+			JSONObject Jbl = (JSONObject) bl;
+			String title = (String) Jbl.get("title");
+			backlinksTitles.add(title);
+		}
+		
+		return backlinksTitles;
+	}
+	
 	public static String getPageName(String pageId) throws IOException, ParseException {
 
 		// Use if we can get the Wikipedia page name directly from wikidata info
@@ -225,7 +262,7 @@ public class ResultQuery {
 		baseUrl.put("props","sitelinks");
 		baseUrl.put("sitefilter","enwiki");
 		baseUrl.put("format", "json");
-		System.out.println(baseUrl);
+		//System.out.println(baseUrl);
 		HttpRequest finalRequest = requestFactory.buildGetRequest(baseUrl);
 		HttpResponse finalHttpResponse = finalRequest.execute();
 		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
@@ -270,11 +307,8 @@ public class ResultQuery {
 			Object value = Jlang.get("value");
 
 			return value.toString();
-
 		}
-
 	}
-
 
 	public static String getSummary(String title) throws IOException, ParseException {
 		HttpTransport httpTransport = new NetHttpTransport();
@@ -285,7 +319,7 @@ public class ResultQuery {
 		baseUrl.put("titles",title);
 		baseUrl.put("prop","extracts");
 		baseUrl.put("format", "json");
-		System.out.println(baseUrl);
+		//System.out.println(baseUrl);
 		HttpRequest finalRequest = requestFactory.buildGetRequest(baseUrl);
 		HttpResponse finalHttpResponse = finalRequest.execute();
 		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
@@ -307,8 +341,7 @@ public class ResultQuery {
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
-		System.out.println(getPageName("Q467402"));
-		System.out.println(getFinalResult("Q467402"));
+		getBackLinks("Q467402");
 	}
 
 }
