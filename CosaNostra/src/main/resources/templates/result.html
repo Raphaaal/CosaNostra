@@ -21,6 +21,7 @@
 									<form action="/post-comment" method="POST">
 										<textarea class="form-control" placeholder="Write a comment..." rows="3" name="comment"></textarea>
 										<br>
+										<input id="artworkId" name="artworkId" type="hidden" th:value="${result.pageId}">
 										<button type="submit" class="btn btn-info pull-right">Post</button>
 										<div class="clearfix"></div>
 									</form>

@@ -27,6 +27,7 @@ import controllers.search.FinalResult;
 import controllers.search.Result;
 import controllers.search.ResultQuery;
 import controllers.search.SearchQuery;
+import queries.CommentQuery;
 import queries.FavorisQuery;
 import queries.UserQuery;
 
@@ -178,11 +179,17 @@ public class PageController {
 	}
 
 	@RequestMapping(value = "/post-comment", method = RequestMethod.POST)
-	public String postComment(@ModelAttribute Comment comment, ModelMap modelMap, HttpSession session) throws ClassNotFoundException, SQLException {
+	public String postComment(@ModelAttribute Comment comment, ModelMap modelMap, HttpSession session, HttpServletRequest request) throws ClassNotFoundException, SQLException {
+
+		String id = session.getAttribute("user_id").toString();
+		User user = UserQuery.getUser(Integer.parseInt(id));
 
 		System.out.println(comment);
 
-		return "redirect:" + "/";
+		//CommentQuery.insertNewComment(user.getId(), user.getName(), comment.getArtworkId(), comment.getComment());
+
+		String referer = request.getHeader("Referer");
+		return "redirect:"+ referer;
 	}
 
 }
