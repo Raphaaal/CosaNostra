@@ -91,8 +91,6 @@ a:hover {
 .comment-wrapper .panel-body {
     max-height:650px;
     overflow:auto;
-    background: white;
-    border-radius: 30px;
 }
 
 .comment-wrapper .media-list .media img {

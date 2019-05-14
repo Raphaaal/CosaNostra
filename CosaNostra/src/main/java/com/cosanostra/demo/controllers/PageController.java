@@ -186,7 +186,7 @@ public class PageController {
 
 		System.out.println(comment);
 
-		//CommentQuery.insertNewComment(user.getId(), user.getName(), comment.getArtworkId(), comment.getComment());
+		CommentQuery.insertNewComment(user.getId(), user.getName(), comment.getArtworkId(), comment.getComment());
 
 		String referer = request.getHeader("Referer");
 		return "redirect:"+ referer;

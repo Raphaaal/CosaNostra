@@ -10,65 +10,88 @@
 				<div class="row">
 					<img th:src="${result.photoUrl}" class="img-fluid">
 				</div>
-				<div class="row bootstrap snippets">
+				<div class="row mt-3">
 					<div class="col-12">
-						<div class="comment-wrapper">
-							<div class="panel panel-info">
-								<div class="panel-heading" style="color: white;">
-									ESPACE COMMENTAIRE
+						<div class="accordion" id="accordion1">
+							<div class="card">
+								<div class="card-header" id="heading1">
+									<h2 class="mb-0">
+										<button class="btn btn-link custom-button" type="button"
+												data-toggle="collapse" data-target="#collapse1"
+												aria-expanded="false" aria-controls="collapse1">
+											Comment</button>
+									</h2>
 								</div>
-								<div class="panel-body">
-									<form action="/post-comment" method="POST">
-										<textarea class="form-control" placeholder="Write a comment..." rows="3" name="comment"></textarea>
-										<br>
-										<input id="artworkId" name="artworkId" type="hidden" th:value="${result.pageId}">
-										<button type="submit" class="btn btn-info pull-right">Post</button>
-										<div class="clearfix"></div>
-									</form>
-									<hr>
-									<ul class="media-list">
-										<li class="media">
-											<div class="media-body">
+
+								<div id="collapse1" class="collapse"
+									 aria-labelledby="heading1" data-parent="#accordion1">
+									<div id="desc1" class="card-body">
+										<div class="row bootstrap snippets">
+											<div class="col-12">
+												<div class="comment-wrapper">
+													<div class="panel panel-info">
+														<div class="panel-heading" style="color: white;">
+															ESPACE COMMENTAIRE
+														</div>
+														<div class="panel-body">
+															<form action="/post-comment" method="POST">
+																<textarea class="form-control" placeholder="Write a comment..." rows="3" name="comment"></textarea>
+																<br>
+																<input id="artworkId" name="artworkId" type="hidden" th:value="${result.pageId}">
+																<button type="submit" class="btn btn-info pull-right">Post</button>
+																<div class="clearfix"></div>
+															</form>
+															<hr>
+															<ul class="media-list">
+																<li class="media">
+																	<div class="media-body">
 												<span class="text-muted pull-right">
 													<small class="text-muted">30 min ago</small>
 												</span>
-												<strong class="text-success">@MartinoMont</strong>
-												<p>
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-													Lorem ipsum dolor sit amet, <a href="#">#consecteturadipiscing </a>.
-												</p>
-											</div>
-										</li>
-										<li class="media">
-											<div class="media-body">
+																		<strong class="text-success">@MartinoMont</strong>
+																		<p>
+																			Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+																			Lorem ipsum dolor sit amet, <a href="#">#consecteturadipiscing </a>.
+																		</p>
+																	</div>
+																</li>
+																<li class="media">
+																	<div class="media-body">
 												<span class="text-muted pull-right">
 													<small class="text-muted">30 min ago</small>
 												</span>
-												<strong class="text-success">@LaurenceCorreil</strong>
-												<p>
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-													Lorem ipsum dolor <a href="#">#ipsumdolor </a>adipiscing elit.
-												</p>
-											</div>
-										</li>
-										<li class="media">
-											<div class="media-body">
+																		<strong class="text-success">@LaurenceCorreil</strong>
+																		<p>
+																			Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+																			Lorem ipsum dolor <a href="#">#ipsumdolor </a>adipiscing elit.
+																		</p>
+																	</div>
+																</li>
+																<li class="media">
+																	<div class="media-body">
 												<span class="text-muted pull-right">
 													<small class="text-muted">30 min ago</small>
 												</span>
-												<strong class="text-success">@JohnNida</strong>
-												<p>
-													Lorem ipsum dolor <a href="#">#sitamet</a> sit amet, consectetur adipiscing elit.
-												</p>
+																		<strong class="text-success">@JohnNida</strong>
+																		<p>
+																			Lorem ipsum dolor <a href="#">#sitamet</a> sit amet, consectetur adipiscing elit.
+																		</p>
+																	</div>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+
 											</div>
-										</li>
-									</ul>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
+
 			</div>
 			<div class="col-6">
 				<div class="row principal-title justify-content-center"
