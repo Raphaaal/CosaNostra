@@ -22,8 +22,6 @@ public class CommentQuery {
 	/**
 	 * 
 	 * @param userId
-	 * @param passw
-	 * @param email
 	 * @return
 	 * @throws ClassNotFoundException
 	 * @throws SQLException

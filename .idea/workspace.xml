@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3548188a-870e-466c-8e9e-a102ce159f4c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/PageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/resources/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/java/queries/CommentQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/java/queries/CommentQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/result.html" beforeDir="false" afterPath="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/result.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/CosaNostra/target/" />
@@ -18,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/PageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="188" column="8" selection-start-line="188" selection-start-column="8" selection-end-line="188" selection-end-column="8" />
+            <state relative-caret-position="93">
+              <caret line="189" selection-start-line="189" selection-end-line="189" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1214#1215#0" expanded="true" />
@@ -32,21 +34,20 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/queries/CommentQuery.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="18" column="46" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/models/Comment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="28" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="28" />
+            <state relative-caret-position="165">
+              <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
               <folding>
-                <element signature="e#475#476#0" expanded="true" />
-                <element signature="e#495#496#0" expanded="true" />
-                <element signature="e#533#534#0" expanded="true" />
-                <element signature="e#560#561#0" expanded="true" />
-                <element signature="e#592#593#0" expanded="true" />
-                <element signature="e#614#615#0" expanded="true" />
-                <element signature="e#659#660#0" expanded="true" />
-                <element signature="e#690#691#0" expanded="true" />
-                <element signature="e#724#725#0" expanded="true" />
-                <element signature="e#750#751#0" expanded="true" />
                 <element signature="e#801#802#0" expanded="true" />
                 <element signature="e#840#841#0" expanded="true" />
                 <element signature="e#873#874#0" expanded="true" />
@@ -66,7 +67,16 @@
         <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/controllers/search/ResultQuery.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-3151">
-              <caret line="31" column="35" lean-forward="true" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+              <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/UserController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="370">
+              <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -110,14 +120,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/resources/templates/result.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="69" selection-start-line="20" selection-start-column="69" selection-end-line="20" selection-end-column="69" />
+            <state relative-caret-position="345">
+              <caret line="51" column="69" selection-start-line="51" selection-start-column="69" selection-end-line="51" selection-end-column="69" />
               <folding>
-                <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#i#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#div#2;n#div#0;n#div#0;n#div#2;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
@@ -158,10 +166,10 @@
       <find>margin-bottom</find>
       <find>Related</find>
       <find>p</find>
-      <find>user =</find>
       <find>Fil</find>
-      <find>for</find>
       <find>c</find>
+      <find>for</find>
+      <find>user =</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -181,7 +189,6 @@
         <option value="$PROJECT_DIR$/cosanostra.sql" />
         <option value="$PROJECT_DIR$/CosaNostra/src/main/java/models/User.java" />
         <option value="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/index.html" />
-        <option value="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/UserController.java" />
         <option value="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/layout/head.html" />
         <option value="$PROJECT_DIR$/CosaNostra/src/main/java/models/Favoris.java" />
         <option value="$PROJECT_DIR$/CosaNostra/src/main/java/queries/UserQuery.java" />
@@ -192,10 +199,11 @@
         <option value="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/profil.html" />
         <option value="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/layout/navbar.html" />
         <option value="$PROJECT_DIR$/CosaNostra/src/main/java/models/Comment.java" />
-        <option value="$PROJECT_DIR$/CosaNostra/src/main/java/queries/CommentQuery.java" />
-        <option value="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/PageController.java" />
         <option value="$PROJECT_DIR$/CosaNostra/src/main/resources/static/css/style.css" />
+        <option value="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/PageController.java" />
         <option value="$PROJECT_DIR$/CosaNostra/src/main/resources/templates/result.html" />
+        <option value="$PROJECT_DIR$/CosaNostra/src/main/java/queries/CommentQuery.java" />
+        <option value="$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/UserController.java" />
       </list>
     </option>
   </component>
@@ -348,7 +356,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557824037978" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557825417345" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Project" />
@@ -406,7 +414,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34383000" />
+    <option name="totallyTimeSpent" value="35542000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -423,7 +431,7 @@
       <window_info id="Web" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3325301" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.036144577" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.21566264" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -669,35 +677,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="32" column="49" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/queries/CommentQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/models/Comment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="28" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="28" />
+        <state relative-caret-position="165">
+          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
           <folding>
-            <element signature="e#475#476#0" expanded="true" />
-            <element signature="e#495#496#0" expanded="true" />
-            <element signature="e#533#534#0" expanded="true" />
-            <element signature="e#560#561#0" expanded="true" />
-            <element signature="e#592#593#0" expanded="true" />
-            <element signature="e#614#615#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#690#691#0" expanded="true" />
-            <element signature="e#724#725#0" expanded="true" />
-            <element signature="e#750#751#0" expanded="true" />
             <element signature="e#801#802#0" expanded="true" />
             <element signature="e#840#841#0" expanded="true" />
             <element signature="e#873#874#0" expanded="true" />
@@ -715,21 +699,7 @@
     <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/controllers/search/ResultQuery.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3151">
-          <caret line="31" column="35" lean-forward="true" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/PageController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="188" column="8" selection-start-line="188" selection-start-column="8" selection-end-line="188" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1214#1215#0" expanded="true" />
-            <element signature="e#1240#1241#0" expanded="true" />
-            <element signature="e#1310#1311#0" expanded="true" />
-            <element signature="e#1337#1338#0" expanded="true" />
-          </folding>
+          <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -775,16 +745,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/resources/templates/result.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="69" selection-start-line="20" selection-start-column="69" selection-end-line="20" selection-end-column="69" />
+        <state relative-caret-position="345">
+          <caret line="51" column="69" selection-start-line="51" selection-start-column="69" selection-end-line="51" selection-end-column="69" />
           <folding>
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#i#0;n#div#1;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#div#2;n#div#0;n#div#0;n#div#2;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#3;n#div#0;n#div#0;n#div#2;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/PageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="189" selection-start-line="189" selection-end-line="189" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1214#1215#0" expanded="true" />
+            <element signature="e#1240#1241#0" expanded="true" />
+            <element signature="e#1310#1311#0" expanded="true" />
+            <element signature="e#1337#1338#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/queries/CommentQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="18" column="46" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CosaNostra/src/main/java/com/cosanostra/demo/controllers/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
         </state>
       </provider>
     </entry>

@@ -130,11 +130,14 @@ public class PageController {
 
 	@GetMapping("/result/{pageId}")
 	public String result(@PathVariable String pageId, ModelMap modelMap, HttpSession session)
-			throws IOException, ParseException {
+			throws IOException, ParseException, SQLException, ClassNotFoundException {
 
 		FinalResult result = ResultQuery.getFinalResult(pageId);
 
+		List<Comment> comments = CommentQuery.getArtworkComment(pageId);
+
 		modelMap.put("result", result);
+		modelMap.put("comments", comments);
 
 		return "result.html";
 	}
@@ -183,8 +186,6 @@ public class PageController {
 
 		String id = session.getAttribute("user_id").toString();
 		User user = UserQuery.getUser(Integer.parseInt(id));
-
-		System.out.println(comment);
 
 		CommentQuery.insertNewComment(user.getId(), user.getName(), comment.getArtworkId(), comment.getComment());
 

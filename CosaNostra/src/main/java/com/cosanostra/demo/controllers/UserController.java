@@ -35,10 +35,12 @@ public class UserController {
 		modelMap.put("user", user);
 
         UserQuery.insertNewUser(user.getName(),user.getPassword(), user.getEmail());
-        user =UserQuery.getUser(user.getEmail(), user.getPassword());
+        User newUser =UserQuery.getUser(user.getEmail(), user.getPassword());
 
-        session.setAttribute("user_name", user.getName());
-        session.setAttribute("user_id", user.getId());
+        session.setAttribute("user_name", newUser.getName());
+        session.setAttribute("user_id", newUser.getId());
+
+        System.out.println(newUser.getId());
 
         return "redirect:" + "/";
     }
