@@ -144,7 +144,6 @@ public class ResultQuery {
 			Object value2 = Jvalue.get("value");
 			JSONObject Jvalue2 = (JSONObject) value2;
 			String propName = getPageName((String) Jvalue2.get("id"));
-			System.out.println(propName);
 			return propName;
 		}
 		return "noProperty";
@@ -265,8 +264,13 @@ public class ResultQuery {
 			JSONObject Jlabels = (JSONObject) labels;
 			Object lang = Jlabels.get("en");
 			JSONObject Jlang = (JSONObject) lang;
-			Object value = Jlang.get("value");
-			return value.toString();
+			if(Jlang != null) {
+				Object value = Jlang.get("value");
+				return value.toString();
+			}
+			else {
+				return "Unnamed";
+			}
 		}
 	}
 
