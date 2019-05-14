@@ -30,6 +30,11 @@ import com.jayway.jsonpath.JsonPath;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 
+/**
+ * This class is used to query the Wikidata Seaarch API in order to extract matching result pages.
+ * These Result objects are then enriched with full name, short description and photo url by querying the corresponding Wikipedia page.
+ *
+ */
 public class SearchQuery {
 
 	private List<Map<String, Result>> resultsList= new ArrayList();

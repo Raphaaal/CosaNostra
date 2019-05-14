@@ -5,12 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -19,14 +17,20 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.jayway.jsonpath.JsonPath;
 
+/**
+ * This class is used to get all necessary information about a final result (chosen from the all the potential results to a query). 
+ * These pieces of information are gathered thanks to the Wikipedia API, based on the final result name.
+ *
+ */
 public class ResultQuery {
 
 	public static Properties properties = new Properties();
 
 	public static FinalResult getFinalResult(String pageId) throws IOException, ParseException {
-
+		// Final result to be populated
 		FinalResult fRes = new FinalResult(null, null, pageId, null, null, null, null, null, null,null); 
 
+		// Wikipedia API request
 		HttpTransport httpTransport = new NetHttpTransport();
 		HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
 		JSONParser parser = new JSONParser();
@@ -38,16 +42,18 @@ public class ResultQuery {
 		baseUrl.put("format", "json");
 		HttpRequest finalRequest = requestFactory.buildGetRequest(baseUrl);
 		HttpResponse finalHttpResponse = finalRequest.execute();
-		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
 
-		// AJOUT PHOTO DU RESULT
+		// JSON parsing
+		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
 		Object entities =  finalResponse.get("entities");
 		JSONObject Jentities = (JSONObject) entities;
 		JSONObject Jid = (JSONObject) Jentities.get(fRes.getPageId());
 		Object claims = Jid.get("claims");
 		JSONObject Jclaims = (JSONObject) claims;
-		Object photo = Jclaims.getOrDefault("P18", "wallou photo");
-		if (photo.toString() != "wallou photo") {
+
+		// Add photo
+		Object photo = Jclaims.getOrDefault("P18", "noPhoto");
+		if (photo.toString() != "noPhoto") {
 			JSONArray Jphoto = (JSONArray) photo;
 			Object mainsnak = Jphoto.get(0);
 			JSONObject Jmainsnak = (JSONObject) mainsnak;
@@ -60,12 +66,12 @@ public class ResultQuery {
 			fRes.setPhotoUrl("https://commons.wikimedia.org/wiki/Special:FilePath/"+finalPhotoName);
 		}
 
-		// AJOUT NOM DU RESULT
+		// Add full name
 		fRes.setName(getPageName(pageId));
 
-		//AJOUT DE LA DATE DE NAISSANCE
-		Object dtBirth = Jclaims.getOrDefault("P569", "wallou date de naissance");
-		if (dtBirth.toString() != "wallou date de naissance") {
+		// Add birth date
+		Object dtBirth = Jclaims.getOrDefault("P569", "noBirthDate");
+		if (dtBirth.toString() != "noBirthDate") {
 			JSONArray JdtBirth = (JSONArray) dtBirth;
 			Object mainsnak = JdtBirth.get(0);
 			JSONObject Jmainsnak = (JSONObject) mainsnak;
@@ -79,9 +85,9 @@ public class ResultQuery {
 			fRes.setDateOfBirth(nametext.toString());
 		}
 
-		//AJOUT DU SEXE
-		Object gender = Jclaims.getOrDefault("P21", "wallou sexe");
-		if (gender.toString() != "wallou sexe") {
+		// Add gender
+		Object gender = Jclaims.getOrDefault("P21", "noGender");
+		if (gender.toString() != "noGender") {
 			JSONArray Jgender = (JSONArray) gender;
 			Object mainsnak = Jgender.get(0);
 			JSONObject Jmainsnak = (JSONObject) mainsnak;
@@ -95,9 +101,9 @@ public class ResultQuery {
 			fRes.setGender(genderName.toString());
 		}
 
-		//AJOUT NATIONALITY
-		Object nationality = Jclaims.getOrDefault("P27", "wallou nationality");
-		if (nationality.toString() != "wallou nationality") {
+		// Add nationality
+		Object nationality = Jclaims.getOrDefault("P27", "noNationality");
+		if (nationality.toString() != "noNationality") {
 			JSONArray Jnationality = (JSONArray) nationality;
 			Object mainsnak = Jnationality.get(0);
 			JSONObject Jmainsnak = (JSONObject) mainsnak;
@@ -111,9 +117,9 @@ public class ResultQuery {
 			fRes.setNationality(nationalityName.toString());
 		}
 
-		//AJOUT INSTANCE OF
-		Object instanceOf = Jclaims.getOrDefault("P31", "wallou instanceOf");
-		if (instanceOf.toString() != "wallou instanceOf") {
+		// Add type (instanceOf)
+		Object instanceOf = Jclaims.getOrDefault("P31", "noInstanceOf");
+		if (instanceOf.toString() != "noInstanceOf") {
 			JSONArray Jinstance = (JSONArray) instanceOf;
 			Object mainsnak = Jinstance.get(0);
 			JSONObject Jmainsnak = (JSONObject) mainsnak;
@@ -127,9 +133,9 @@ public class ResultQuery {
 			fRes.setInstanceOf(instanceOfName.toString());
 		}
 
-		//AJOUT OCCUPATION
-		Object occupation = Jclaims.getOrDefault("P106", "wallou occupation");
-		if (occupation.toString() != "wallou occupation") {
+		// Add occupation
+		Object occupation = Jclaims.getOrDefault("P106", "noOccupation");
+		if (occupation.toString() != "noOccupation") {
 			JSONArray Joccupation = (JSONArray) occupation;
 			Object mainsnak = Joccupation.get(0);
 			JSONObject Jmainsnak = (JSONObject) mainsnak;
@@ -144,9 +150,9 @@ public class ResultQuery {
 		}
 
 
-		//AJOUT STYLE
-		Object style = Jclaims.getOrDefault("P136", "wallou style");
-		if (style.toString() != "wallou style") {
+		// Add style
+		Object style = Jclaims.getOrDefault("P136", "noStyle");
+		if (style.toString() != "noStyle") {
 			JSONArray Jstyle = (JSONArray) style;
 			Object mainsnak = Jstyle.get(0);
 			JSONObject Jmainsnak = (JSONObject) mainsnak;
@@ -161,8 +167,8 @@ public class ResultQuery {
 		}
 
 
-		//AJOUT SERVICES RELIES
-		//MusicBrainz
+		// Add related services
+		// MusicBrainz
 		Object musicBrainz = Jclaims.getOrDefault("P434", "wallou musicBrainz");
 		if (musicBrainz.toString() != "wallou musicBrainz") {
 			JSONArray JmusicBrainz = (JSONArray) musicBrainz;
@@ -175,7 +181,7 @@ public class ResultQuery {
 			Object value2 = Jvalue.get("value");
 			fRes.getRelatedServices().put("MusicBrainz", "https://musicbrainz.org/artist/"+value2.toString());
 		}
-		//Twitter
+		// Twitter
 		Object twitter = Jclaims.getOrDefault("P2002", "wallou twitter");
 		if (twitter.toString() != "wallou twitter") {
 			JSONArray Jtwitter = (JSONArray) twitter;
@@ -189,7 +195,7 @@ public class ResultQuery {
 			fRes.getRelatedServices().put("Twitter", "https://twitter.com/"+value2.toString());
 		}
 
-		//Spotify
+		// Spotify
 		Object spotify = Jclaims.getOrDefault("P1902", "wallou spotify");
 		if (spotify.toString() != "wallou spotify") {
 			JSONArray Jspotify = (JSONArray) spotify;
@@ -203,20 +209,28 @@ public class ResultQuery {
 			fRes.getRelatedServices().put("Spotify", "https://open.spotify.com/artist/"+value2.toString());
 		}
 
-		//Wikipedia page
+		// Wikipedia page
 		fRes.getRelatedServices().put("Wikipedia","https://en.wikipedia.org/wiki/" + getPageName(pageId));
 
-		//AJOUT DESCRIPTION
+		// Add summary
 		fRes.setDesc(getSummary(fRes.getName()));
-		
-		//AJOUT BACKLINKS
+
+		// Add backlinks (for recommendations)
 		fRes.setBacklinks(getBackLinks(pageId));
-		
+
 		return fRes;
 
 	}
 
+	/**
+	 * This method gets all pages linking to a specific page (backlinks).
+	 * @param pageId : the id of the sepcific page
+	 * @return the list of the backlink pages' names
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	public static List<String> getBackLinks(String pageId) throws IOException, ParseException{
+		// Wikipedia API request
 		HttpTransport httpTransport = new NetHttpTransport();
 		HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
 		JSONParser parser = new JSONParser();
@@ -225,31 +239,35 @@ public class ResultQuery {
 		baseUrl.put("format", "json");
 		baseUrl.put("list", "backlinks");
 		baseUrl.put("bltitle", getPageName(pageId));
-		//System.out.println(baseUrl);
-		
 		HttpRequest finalRequest = requestFactory.buildGetRequest(baseUrl);
 		HttpResponse finalHttpResponse = finalRequest.execute();
+
+		// JSON Parsing
 		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
 		Object query = finalResponse.get("query");
 		JSONObject Jquery = (JSONObject) query;
 		Object backlinks = Jquery.get("backlinks");
 		JSONArray Jbacklinks = (JSONArray) backlinks;
-		
+
 		List<String> backlinksTitles = new ArrayList<>();
-		
+
 		for (Object bl : Jbacklinks) {
 			JSONObject Jbl = (JSONObject) bl;
 			String title = (String) Jbl.get("title");
 			backlinksTitles.add(title);
 		}
-		System.out.println(backlinksTitles);
 		return backlinksTitles;
 	}
-	
+
+	/**
+	 * This method gets the full name of a page on Wikipedia given its pageId
+	 * @param pageId
+	 * @return the name of the page
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	public static String getPageName(String pageId) throws IOException, ParseException {
-
-		// Use if we can get the Wikipedia page name directly from wikidata info
-
+		// Wikidata API request
 		HttpTransport httpTransport = new NetHttpTransport();
 		HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
 		JSONParser parser = new JSONParser();
@@ -259,27 +277,28 @@ public class ResultQuery {
 		baseUrl.put("props","sitelinks");
 		baseUrl.put("sitefilter","enwiki");
 		baseUrl.put("format", "json");
-		//System.out.println(baseUrl);
 		HttpRequest finalRequest = requestFactory.buildGetRequest(baseUrl);
 		HttpResponse finalHttpResponse = finalRequest.execute();
+		
+		//JSON parsing
 		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
-
 		Object entities = finalResponse.get("entities");
 		JSONObject Jentities = (JSONObject) entities;
 		Object id = Jentities.get(pageId);
 		JSONObject Jid = (JSONObject) id;
 		Object sitelinks = Jid.get("sitelinks");
 		JSONObject Jsitelinks = (JSONObject) sitelinks;
-		Object enwiki = Jsitelinks.getOrDefault("enwiki", "wallou wikidata sitelinks");
-		if (enwiki.toString() != "wallou wikidata sitelinks") {
+		Object enwiki = Jsitelinks.getOrDefault("enwiki", "noWikidataSitelinks");
+
+		// Use if we can get the Wikipedia page name directly from wikidata info
+		if (enwiki.toString() != "noWikidataSitelinks") {
 			JSONObject Jenwiki = (JSONObject) enwiki;
 			Object title = Jenwiki.get("title");
 			return  title.toString();
 		}
-
 		else {
 			// Use if we cannot get the Wikipedia page name directly from wikidata info
-
+			// Wikidata API request
 			HttpTransport httpTransport2 = new NetHttpTransport();
 			HttpRequestFactory requestFactory2 = httpTransport2.createRequestFactory();
 			JSONParser parser2 = new JSONParser();
@@ -291,8 +310,9 @@ public class ResultQuery {
 			baseUrl2.put("format", "json");
 			HttpRequest finalRequest2 = requestFactory2.buildGetRequest(baseUrl2);
 			HttpResponse finalHttpResponse2 = finalRequest2.execute();
+			
+			// JSON parsing to get the page label (will be used as full name)
 			JSONObject finalResponse2 = (JSONObject) parser2.parse(finalHttpResponse2.parseAsString());
-
 			Object entities2 = finalResponse2.get("entities");
 			JSONObject Jentities2 = (JSONObject) entities2;
 			Object page = Jentities2.get(pageId);
@@ -302,12 +322,19 @@ public class ResultQuery {
 			Object lang = Jlabels.get("en");
 			JSONObject Jlang = (JSONObject) lang;
 			Object value = Jlang.get("value");
-
 			return value.toString();
 		}
 	}
 
+	/**
+	 * This method extracts the summary of a page given its full Wikipedia title.
+	 * @param title
+	 * @return the summary
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	public static String getSummary(String title) throws IOException, ParseException {
+		// Wikipedia API request
 		HttpTransport httpTransport = new NetHttpTransport();
 		HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
 		JSONParser parser = new JSONParser();
@@ -316,11 +343,11 @@ public class ResultQuery {
 		baseUrl.put("titles",title);
 		baseUrl.put("prop","extracts");
 		baseUrl.put("format", "json");
-		//System.out.println(baseUrl);
 		HttpRequest finalRequest = requestFactory.buildGetRequest(baseUrl);
 		HttpResponse finalHttpResponse = finalRequest.execute();
+		
+		// JSON parsing
 		JSONObject finalResponse = (JSONObject) parser.parse(finalHttpResponse.parseAsString());
-
 		Object query = finalResponse.get("query");
 		JSONObject Jquery = (JSONObject) query;
 		Object pages = Jquery.get("pages");
@@ -333,12 +360,10 @@ public class ResultQuery {
 		Object objectKey = Jpages.get(key);
 		JSONObject JobjectKey = (JSONObject) objectKey;
 		Object extract = JobjectKey.get("extract");
-
 		return (String) extract;
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
 		getBackLinks("Q3052772");
 	}
-
 }
