@@ -2,18 +2,19 @@ package models;
 
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Comment {
 
 	private int userId;
 	private String userName;
-	private Date creationDate;
+	private Timestamp creationDate;
 	private String artworkId;
 	private String comment;
 
 	public Comment(){}
 
-	public Comment(int userId, String userName, Date creationDate, String artworkId, String comment) {
+	public Comment(int userId, String userName, Timestamp creationDate, String artworkId, String comment) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -47,11 +48,11 @@ public class Comment {
 		this.userName = userName;
 	}
 
-	public Date getCreationDate() {
+	public Timestamp getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(Timestamp creationDate) {
 		this.creationDate = creationDate;
 	}
 
