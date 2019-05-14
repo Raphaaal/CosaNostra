@@ -25,6 +25,7 @@ import com.jayway.jsonpath.JsonPath;
 public class ResultQuery {
 
 	public static Properties properties = new Properties();
+	
 
 	public static FinalResult getFinalResult(String pageId) throws IOException, ParseException {
 		// Final result to be populated
@@ -51,6 +52,27 @@ public class ResultQuery {
 		Object claims = Jid.get("claims");
 		JSONObject Jclaims = (JSONObject) claims;
 
+		// Add full name
+		fRes.setName(getPageName(pageId));
+
+		// Add summary
+		fRes.setDesc(getSummary(fRes.getName()));
+
+		// Add gender
+		fRes.setGender(getProperty("P21", Jclaims));
+
+		// Add nationality
+		fRes.setNationality(getProperty("P27", Jclaims));
+
+		// Add type (instanceOf)
+		fRes.setInstanceOf(getProperty("P31", Jclaims));
+
+		// Add occupation
+		fRes.setOccupation(getProperty("P106", Jclaims));
+
+		// Add style
+		fRes.setStyle(getProperty("P136", Jclaims));
+
 		// Add photo
 		Object photo = Jclaims.getOrDefault("P18", "noPhoto");
 		if (photo.toString() != "noPhoto") {
@@ -65,10 +87,7 @@ public class ResultQuery {
 			String finalPhotoName = photoName.toString().replaceAll(" ", "_");
 			fRes.setPhotoUrl("https://commons.wikimedia.org/wiki/Special:FilePath/"+finalPhotoName);
 		}
-
-		// Add full name
-		fRes.setName(getPageName(pageId));
-
+		
 		// Add birth date
 		Object dtBirth = Jclaims.getOrDefault("P569", "noBirthDate");
 		if (dtBirth.toString() != "noBirthDate") {
@@ -82,144 +101,69 @@ public class ResultQuery {
 			Object namevalue = Jvalue.get("value");
 			JSONObject Jnamevalue = (JSONObject) namevalue;
 			Object nametext = Jnamevalue.get("time");
-			fRes.setDateOfBirth(nametext.toString());
+			fRes.setDateOfBirth(nametext.toString().substring(1, 11));
 		}
-
-		// Add gender
-		Object gender = Jclaims.getOrDefault("P21", "noGender");
-		if (gender.toString() != "noGender") {
-			JSONArray Jgender = (JSONArray) gender;
-			Object mainsnak = Jgender.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object value2 = Jvalue.get("value");
-			JSONObject Jvalue2 = (JSONObject) value2;
-			String genderName = getPageName((String) Jvalue2.get("id"));
-			fRes.setGender(genderName.toString());
-		}
-
-		// Add nationality
-		Object nationality = Jclaims.getOrDefault("P27", "noNationality");
-		if (nationality.toString() != "noNationality") {
-			JSONArray Jnationality = (JSONArray) nationality;
-			Object mainsnak = Jnationality.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object value2 = Jvalue.get("value");
-			JSONObject Jvalue2 = (JSONObject) value2;
-			String nationalityName = getPageName((String) Jvalue2.get("id"));
-			fRes.setNationality(nationalityName.toString());
-		}
-
-		// Add type (instanceOf)
-		Object instanceOf = Jclaims.getOrDefault("P31", "noInstanceOf");
-		if (instanceOf.toString() != "noInstanceOf") {
-			JSONArray Jinstance = (JSONArray) instanceOf;
-			Object mainsnak = Jinstance.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object value2 = Jvalue.get("value");
-			JSONObject Jvalue2 = (JSONObject) value2;
-			String instanceOfName = getPageName((String) Jvalue2.get("id"));
-			fRes.setInstanceOf(instanceOfName.toString());
-		}
-
-		// Add occupation
-		Object occupation = Jclaims.getOrDefault("P106", "noOccupation");
-		if (occupation.toString() != "noOccupation") {
-			JSONArray Joccupation = (JSONArray) occupation;
-			Object mainsnak = Joccupation.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object value2 = Jvalue.get("value");
-			JSONObject Jvalue2 = (JSONObject) value2;
-			String nationalityName = getPageName((String) Jvalue2.get("id"));
-			fRes.setOccupation(nationalityName.toString());
-		}
-
-
-		// Add style
-		Object style = Jclaims.getOrDefault("P136", "noStyle");
-		if (style.toString() != "noStyle") {
-			JSONArray Jstyle = (JSONArray) style;
-			Object mainsnak = Jstyle.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object value2 = Jvalue.get("value");
-			JSONObject Jvalue2 = (JSONObject) value2;
-			String nationalityName = getPageName((String) Jvalue2.get("id"));
-			fRes.setStyle(nationalityName.toString());
-		}
-
-
-		// Add related services
-		// MusicBrainz
-		Object musicBrainz = Jclaims.getOrDefault("P434", "wallou musicBrainz");
-		if (musicBrainz.toString() != "wallou musicBrainz") {
-			JSONArray JmusicBrainz = (JSONArray) musicBrainz;
-			Object mainsnak = JmusicBrainz.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object value2 = Jvalue.get("value");
-			fRes.getRelatedServices().put("MusicBrainz", "https://musicbrainz.org/artist/"+value2.toString());
-		}
-		// Twitter
-		Object twitter = Jclaims.getOrDefault("P2002", "wallou twitter");
-		if (twitter.toString() != "wallou twitter") {
-			JSONArray Jtwitter = (JSONArray) twitter;
-			Object mainsnak = Jtwitter.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object value2 = Jvalue.get("value");
-			fRes.getRelatedServices().put("Twitter", "https://twitter.com/"+value2.toString());
-		}
-
-		// Spotify
-		Object spotify = Jclaims.getOrDefault("P1902", "wallou spotify");
-		if (spotify.toString() != "wallou spotify") {
-			JSONArray Jspotify = (JSONArray) spotify;
-			Object mainsnak = Jspotify.get(0);
-			JSONObject Jmainsnak = (JSONObject) mainsnak;
-			Object datavalue = Jmainsnak.get("mainsnak");
-			JSONObject Jdatavalue = (JSONObject) datavalue;
-			Object value = Jdatavalue.get("datavalue");
-			JSONObject Jvalue = (JSONObject) value;
-			Object value2 = Jvalue.get("value");
-			fRes.getRelatedServices().put("Spotify", "https://open.spotify.com/artist/"+value2.toString());
-		}
-
-		// Wikipedia page
+		
+		// Wikipedia page link
 		fRes.getRelatedServices().put("Wikipedia","https://en.wikipedia.org/wiki/" + getPageName(pageId));
-
-		// Add summary
-		fRes.setDesc(getSummary(fRes.getName()));
-
+		
 		// Add backlinks (for recommendations)
 		fRes.setBacklinks(getBackLinks(pageId));
 
+		// Add related services
+		
+		// MusicBrainz
+		String musicBrainizid = getRelatedService("P434", Jclaims);
+		if(musicBrainizid != "noRelatedService")
+			fRes.getRelatedServices().put("MusicBrainz", "https://musicbrainz.org/artist/" + musicBrainizid);
+		
+		// Twitter
+		String twitterId = getRelatedService("P2002", Jclaims);
+		if(twitterId != "noRelatedService")
+			fRes.getRelatedServices().put("Twitter", "https://twitter.com/" + twitterId);
+
+		// Spotify
+		String SpotifyId = getRelatedService("P1902", Jclaims);
+		if(SpotifyId != "noRelatedService")
+			fRes.getRelatedServices().put("Spotify", "https://open.spotify.com/artist/" + SpotifyId);
+
 		return fRes;
 
+	}
+	
+	public static String getProperty(String property, JSONObject Jclaims) throws IOException, ParseException {
+		Object prop = Jclaims.getOrDefault(property, "noProperty");
+		if (prop.toString() != "noProperty") {
+			JSONArray Jprop = (JSONArray) prop;
+			Object mainsnak = Jprop.get(0);
+			JSONObject Jmainsnak = (JSONObject) mainsnak;
+			Object datavalue = Jmainsnak.get("mainsnak");
+			JSONObject Jdatavalue = (JSONObject) datavalue;
+			Object value = Jdatavalue.get("datavalue");
+			JSONObject Jvalue = (JSONObject) value;
+			Object value2 = Jvalue.get("value");
+			JSONObject Jvalue2 = (JSONObject) value2;
+			String propName = getPageName((String) Jvalue2.get("id"));
+			System.out.println(propName);
+			return propName;
+		}
+		return "noProperty";
+	}
+	
+	public static String getRelatedService (String property, JSONObject Jclaims) {
+		Object prop = Jclaims.getOrDefault(property, "noRelatedService");
+		if (prop.toString() != "noRelatedService") {
+			JSONArray Jproperty = (JSONArray) prop;
+			Object mainsnak = Jproperty.get(0);
+			JSONObject Jmainsnak = (JSONObject) mainsnak;
+			Object datavalue = Jmainsnak.get("mainsnak");
+			JSONObject Jdatavalue = (JSONObject) datavalue;
+			Object value = Jdatavalue.get("datavalue");
+			JSONObject Jvalue = (JSONObject) value;
+			Object relatedServiceValue = Jvalue.get("value");
+			return relatedServiceValue.toString();
+		}
+		return "noRelatedService";
 	}
 
 	/**
@@ -364,6 +308,6 @@ public class ResultQuery {
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
-		getBackLinks("Q3052772");
+		getFinalResult("Q3052772");
 	}
 }
