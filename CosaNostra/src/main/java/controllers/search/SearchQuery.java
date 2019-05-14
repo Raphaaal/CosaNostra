@@ -37,7 +37,7 @@ import ch.qos.logback.classic.LoggerContext;
  */
 public class SearchQuery {
 
-	private List<Map<String, Result>> resultsList= new ArrayList();
+	private List<Map<String, Result>> resultsList = new ArrayList();
 	private String query;
 	private String[] types; // Filters for the search query
 	public SearchQuery(String query,String ...types) {
@@ -118,15 +118,17 @@ public class SearchQuery {
 
 		for(Map<String, Result> map : resultsList) {
 			for(Result r : map.values()) {
-				for(String t : types) {
-					if(resultsToSend != null) {
-						if((r.getInstanceOf().contains(t) && !resultsToSend.contains(r))) {
-							resultsToSend.add(r);
+				if(r.getName() != "Unnamed") {
+					for(String t : types) {
+						if(resultsToSend != null) {
+							if((r.getInstanceOf().contains(t) && !resultsToSend.contains(r))) {
+								resultsToSend.add(r);
+							}
 						}
-					}
-					else {
-						if(r.getInstanceOf().contains(t))
-							resultsToSend.add(r);
+						else {
+							if(r.getInstanceOf().contains(t))
+								resultsToSend.add(r);
+						}
 					}
 				}
 			}
@@ -221,7 +223,7 @@ public class SearchQuery {
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
-		String query = "Zidane";
+		String query = "La Fouine";
 		String[] types = {"human"};
 		SearchQuery sq = new SearchQuery(query, types);
 		System.out.println("------ LISTE DES OBJETS FINAUX RENVOYES -----------");
