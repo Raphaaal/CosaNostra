@@ -11,6 +11,7 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import models.Comment;
 import models.Favoris;
 import models.User;
 import org.json.simple.JSONArray;
@@ -18,11 +19,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.jayway.jsonpath.JsonPath;
 
@@ -178,6 +175,14 @@ public class PageController {
 	public @ResponseBody void deleteFav(@PathVariable String pageId, ModelMap modelMap, HttpSession session)
 			throws IOException, ParseException, SQLException, ClassNotFoundException {
 		FavorisQuery.RemoveFavoris(session.getAttribute("user_id").toString(), pageId);
+	}
+
+	@RequestMapping(value = "/post-comment", method = RequestMethod.POST)
+	public String postComment(@ModelAttribute Comment comment, ModelMap modelMap, HttpSession session) throws ClassNotFoundException, SQLException {
+
+		System.out.println(comment);
+
+		return "redirect:" + "/";
 	}
 
 }
