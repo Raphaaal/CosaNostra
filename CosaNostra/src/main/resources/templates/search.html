@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-	<head th:replace="layout/head"></head>
-	<body>
+<head th:replace="layout/head"></head>
+<body>
 
-	<nav th:replace="layout/navbar"></nav>
-	<div class="container">
-		<table style = "background-color:#000033"; class="table">
+<nav th:replace="layout/navbar"></nav>
+<div class="container">
+	<div th:if="${#lists.isEmpty(results)}">
+		<h1 style="color : white ">This query did not yield any results...</h1>
+		<button class="btn btn-lg btn-dark" onclick="window.location.href = '/';">Go back</button>
+	</div>
+	<div th:unless="${#lists.isEmpty(results)}">
+		<table style="background-color: #000033" ; class="table">
 			<thead class="thead-dark">
-			    <tr>
-			      <th scope="col">Photo</th>
-			      <th scope="col">Name</th>
-			      <th scope="col">Description</th>
-			      <th scope="col">Link</th>
-			    </tr>
-		  	</thead>
-		  	<tbody>
-			    <tr th:each="result : ${results}"> 
-				      <td style="color:white;" ><img style="width:100px;height:auto;" th:src ="${result.photoUrl}"></td>
-				      <td style="color:white;" th:text="${result.name}"></td>
-				      <td style="color:white;" th:utext="${result.type}"> </td>
-				      <td style="color:white;"> <a th:href = "@{'/result/'+${result.pageId}}">Go Further</a></td>   
-			    </tr>
-			 </tbody>
+			<tr>
+				<th scope="col">Photo</th>
+				<th scope="col">Name</th>
+				<th scope="col">Description</th>
+				<th scope="col">Link</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="result : ${results}">
+				<td style="color: white;"><img
+						style="width: 100px; height: auto;" th:src="${result.photoUrl}"></td>
+				<td style="color: white;" th:text="${result.name}"></td>
+				<td style="color: white;" th:utext="${result.type}"></td>
+				<td style="color: white;"><a
+						th:href="@{'/result/'+${result.pageId}}">Go Further</a></td>
+			</tr>
+			</tbody>
 		</table>
 	</div>
-	
+
+</div>
+
 </body>
 </html>

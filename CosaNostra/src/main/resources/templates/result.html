@@ -31,13 +31,20 @@
 												<div class="comment-wrapper">
 													<div class="panel panel-info">
 														<div class="panel-body">
-															<form action="/post-comment" method="POST">
-																<textarea class="form-control" placeholder="Write a comment..." rows="3" name="comment"></textarea>
-																<br>
-																<input id="artworkId" name="artworkId" type="hidden" th:value="${result.pageId}">
-																<button type="submit" class="btn btn-info pull-right">Post</button>
-																<div class="clearfix"></div>
-															</form>
+															<div th:if="${session.user_id}">
+																<form action="/post-comment" method="POST">
+																	<textarea class="form-control" placeholder="Write a comment..." rows="3" name="comment"></textarea>
+																	<br>
+																	<input id="artworkId" name="artworkId" type="hidden" th:value="${result.pageId}">
+																	<button type="submit" class="btn btn-info pull-right">Post</button>
+																	<div class="clearfix"></div>
+																</form>
+															</div>
+															<div th:unless="${session.user_id}">
+																<div>
+																	Veuillez vous connecter pour laisser un commentaire en cliquant <a href="/signin">ici</a>
+																</div>
+															</div>
 															<hr>
 															<ul class="media-list">
 																<li class="media" th:each="comment : ${comments}">
@@ -68,7 +75,7 @@
 			<div class="col-6">
 				<div class="row principal-title justify-content-center"
 					th:text="${result.name}"></div>
-				<div class="row justify-content-center" style="font-size: 1.5em; color: white">
+				<div class="row justify-content-center" th:if="${session.user_id}" style="font-size: 1.5em; color: white">
 					Add to bookmarks<span>&nbsp</span>
 					<i id="heart" class="fa-heart" style="color:red;"></i>
 				</div>
@@ -154,7 +161,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</d>
 		</div>
 	</div>
 	<div id="hidden-div">

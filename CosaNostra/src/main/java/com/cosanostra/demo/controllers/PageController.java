@@ -151,7 +151,7 @@ public class PageController {
 	}
 
 	@GetMapping("/logout")
-	public String logout(HttpSession session)
+	public String logout(HttpSession session, HttpServletRequest request)
 			throws IOException, ParseException, SQLException, ClassNotFoundException {
 	
 		if (!Objects.isNull(session.getAttribute("user_id")))
@@ -160,7 +160,8 @@ public class PageController {
 			session.removeAttribute("user_name");
 		if (!Objects.isNull(session.getAttribute("user_password")))
 			session.removeAttribute("user_password");
-		return "redirect:" + "/";
+		String referer = request.getHeader("Referer");
+		return "redirect:"+ referer;
 
 
 	}
